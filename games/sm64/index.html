@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,21 +8,34 @@
     <meta name="title" content="Super Mario 64">
     <meta name="description" content="Play your favorite online games free now!">
     <meta name="language" content="English">
-    <title>Super Mario 64</title>
+    <title>EMS</title>
+    <link rel="icon" type="image/x-icon" href="https://ubg100.github.io/assets/img/socials/ubg100.png" />
+    <link rel="mask-icon" type="" href="https://ubg100.github.io/assets/img/socials/ubg100.png" color="#111" />
     <link rel="stylesheet" href="https://ubg100.github.io//assets/css/main.css">
     <link rel="stylesheet" href="https://ubg100.github.io/assets/css/contentpage.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <noscript>Your browser doesn't have JavaScript enabled. Please enable JavaScript or switch to a browser that
         supports it.</noscript>
+    <style>
+      /* Ensure body and canvas take up the full available space */
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevent scrollbars when the canvas scales */
+      }
+      #canvas {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+      }
+    </style>
 </head>
 
- 
 <body>
-    <div class="content-wrapper" align="cecnter">
+    <div class="content-wrapper" align="center">
         <div class="main-content">
             <section class="content">
                 <div class="content-container">
-                    <!-- Removed inline style to allow the script to control the size -->
                     <canvas class="emscripten" id="canvas"></canvas>
                     <script type='text/javascript'>
                         var Module = {
@@ -58,14 +71,14 @@
                             <h1 id="content-title">Super Mario ^4</h1>
                             <h3 id="content-creator">by Sm64js</h3>
                         </div>
-                        <button onclick="cFullscreen()">
+                        <!-- This button is now redundant, as fullscreen is triggered on first click -->
+                        <!-- <button onclick="cFullscreen()">
                             <i class="fas fa-expand fa-2x"></i>
-                        </button>
+                        </button> -->
                     </div>
                 </div>
- 
- 
-                
+            </section>
+        </div>
     </div>
     
     <script src="https://ubg100.github.io//assets/js/main.js"></script>
@@ -95,5 +108,5 @@
       });
     </script>
 </body>
- 
+
 </html>
