@@ -1,14 +1,9 @@
-<div id="website-container">
-    Loading content...
-</div>
+<div id="dynamic-content"></div>
 
 <script>
-    fetch('https://eaglercraft.com/', { mode: 'no-cors' })
-    .then(response => {
-        // The response will be "opaque" and inaccessible to JavaScript
-        console.log(response);
-    })
-    .catch(error => {
-        console.error('Failed to load content:', error);
-    });
+fetch('https://eaglercraft.com/')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('dynamic-content').innerHTML = data;
+  });
 </script>
