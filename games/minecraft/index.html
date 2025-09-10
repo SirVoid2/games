@@ -1,0 +1,22 @@
+<div id="website-container">
+    Loading content...
+</div>
+
+<script>
+async function loadWebsiteContent(url) {
+    try {
+        const response = await fetch('/proxy?url=' + encodeURIComponent(url));
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const text = await response.text();
+        document.getElementById('website-container').innerHTML = text;
+    } catch (error) {
+        console.error('Failed to load content:', error);
+        document.getElementById('website-container').innerHTML = 'Could not load the requested content.';
+    }
+}
+
+// Call the function with the URL of the website you want to embed
+loadWebsiteContent('https://eaglercraft.com/');
+</script>
