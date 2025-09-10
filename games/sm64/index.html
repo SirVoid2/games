@@ -24,7 +24,8 @@
         <div class="main-content">
             <section class="content">
                 <div class="content-container">
-                    <canvas class="emscripten" id="canvas" style="width: 900px; height: 506.25px"></canvas>
+                    <!-- Removed inline style to allow the script to control the size -->
+                    <canvas class="emscripten" id="canvas"></canvas>
                     <script type='text/javascript'>
                         var Module = {
                             preRun: [],
@@ -73,6 +74,28 @@
     <script src="https://ubg100.github.io//assets/js/games/games.js"></script>
     <script src="https://ubg100.github.io//assets/js/contentpage.js"></script>
     <script src="https://ubg100.github.io//assets/js/gads/gads.js"></script>
+
+    <!-- New script to handle automatic fullscreen on first user interaction -->
+    <script>
+      function enterFullscreen() {
+        var element = document.documentElement;
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // Firefox
+          element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+          element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+          element.msRequestFullscreen();
+        }
+      }
+
+      // Automatically try to enter fullscreen on the first click anywhere on the page
+      document.body.addEventListener('click', function handler() {
+        enterFullscreen();
+        document.body.removeEventListener('click', handler);
+      });
+    </script>
 </body>
  
 </html>
