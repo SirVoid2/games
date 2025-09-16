@@ -1,0 +1,26 @@
+{
+  "featured": {
+    "title": "Dune",
+    "cover": "covers/dune.jpg",
+    "file": "https://example.com/media/dune.mp4",
+    "type": "movie"
+  },
+  "movies": [
+    { "id": "dune", "title": "Dune", "cover": "covers/dune.jpg", "file": "https://example.com/media/dune.mp4" },
+    { "id": "oddball", "title": "Oddball", "cover": "covers/oddball.jpg", "file": "https://example.com/media/oddball.mkv" }
+  ],
+  "shows": [
+    {
+      "id": "bb",
+      "title": "Breaking Bad",
+      "cover": "covers/breaking_bad.jpg",
+      "episodes": [
+        { "title": "S01E01 - Pilot", "file": "https://example.com/media/bb/s01e01.mp4" },
+        { "title": "S01E02 - Cat's in the Bag...", "file": "https://example.com/media/bb/s01e02.mkv" }
+      ]
+    }
+  ],
+  "games": [
+    { "title": "Quake installer", "cover": "covers/quake.jpg", "file": "https://example.com/files/quake_installer.zip" }
+  ]
+}

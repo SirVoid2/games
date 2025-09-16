@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>StaticFlix — Static media player</title>
+<style>
+  :root{--bg:#030307;--card:#141414;--accent:#e50914;--muted:#9b9b9b}
+  html,body{height:100%;margin:0;background:var(--bg);color:#fff;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  header{position:sticky;top:0;height:64px;display:flex;align-items:center;padding:0 20px;background:linear-gradient(180deg, rgba(0,0,0,0.6), transparent);z-index:20}
+  .logo{color:var(--accent);font-weight:800;font-size:20px}
+  main{padding:18px}
+  .hero{height:45vh;background:#111;border-radius:8px;display:flex;align-items:flex-end;padding:28px;background-size:cover;background-position:center}
+  .hero-title{font-size:36px;margin:0}
+  .rows{margin-top:18px}
+  .row-title{font-size:16px;margin:12px 6px}
+  .carousel{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+  .card{min-width:180px;border-radius:6px;overflow:hidden;background:var(--card);cursor:pointer;flex:0 0 180px;box-shadow:0 8px 24px rgba(0,0,0,0.5);transition:transform .18s}
+  .card img{width:100%;height:260px;object-fit:cover;display:block}
+  .card-title{padding:8px;text-align:center;font-size:13px}
+  #player{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;z-index:60;flex-direction:column;padding:20px}
+  video{width:85%;max-height:80vh;background:#000;border-radius:6px}
+  .p-controls{margin-top:12px;display:flex;gap:8px}
+  .btn{background:var(--accent);border:none;padding:10px 14px;border-radius:6px;color:#fff;cursor:pointer}
+  #xcode{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#0f0f0f;padding:14px;border-radius:8px;display:none;z-index:70;width:520px;max-width:94%}
+  #xcode .progress{height:14px;background:#222;border-radius:8px;overflow:hidden;margin-top:8px}
+  #xcode .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#ff3b3b)}
+  footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+  @media (max-width:800px){ .card{min-width:140px} .card img{height:180px} .hero-title{font-size:24px} video{width:95%} }
+</style>
+</head>
+<body>
+  <header><div class="logo">StaticFlix</div></header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div>
+        <h1 id="hero-title" class="hero-title">Featured</h1>
+        <p id="hero-desc" style="color:var(--muted);max-width:60%">Your static media collection — browser playback + client-side transcode fallback.</p>
+      </div>
+    </section>
+
+    <div class="rows">
+      <div><h3 class="row-title">Movies</h3><div id="movies" class="carousel"></div></div>
+      <div style="margin-top:12px"><h3 class="row-title">Shows</h3><div id="shows" class="carousel"></div></div>
+      <div style="margin-top:12px"><h3 class="row-title">Files</h3><div id="games" class="carousel"></div></div>
+    </div>
+
+    <footer>StaticFlix — static media library</footer>
+  </main>
+
+  <!-- player modal -->
+  <div id="player">
+    <video id="video" controls></video>
+    <div class="p-controls">
+      <button id="closeBtn" class="btn">Close</button>
+      <button id="downloadBtn" class="btn">Download</button>
+    </div>
+  </div>
+
+  <!-- transcode modal -->
+  <div id="xcode">
+    <div style="font-weight:700">Transcoding in your browser — this can be slow</div>
+    <div id="xfile" style="color:var(--muted);font-size:13px;margin-top:6px">Preparing...</div>
+    <div class="progress"><i id="xbar"></i></div>
+    <div style="margin-top:10px;text-align:right"><button id="xcancel" class="btn">Cancel</button></div>
+  </div>
+
+<script type="module">
+/* Lightweight static player with ffmpeg.wasm fallback */
+import { createFFmpeg, fetchFile } from "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/ffmpeg.min.js";
+
+const ffmpeg = createFFmpeg({ log: true });
+let ffmpegLoaded = false;
+let currentBlobURL = null;
+
+const hero = document.getElementById('hero');
+const heroTitle = document.getElementById('hero-title');
+const moviesNode = document.getElementById('movies');
+const showsNode = document.getElementById('shows');
+const gamesNode = document.getElementById('games');
+const player = document.getElementById('player');
+const video = document.getElementById('video');
+const closeBtn = document.getElementById('closeBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const xcode = document.getElementById('xcode');
+const xfile = document.getElementById('xfile');
+const xbar = document.getElementById('xbar');
+const xcancel = document.getElementById('xcancel');
+
+async function loadLibrary(){
+  const res = await fetch('media.json');
+  if(!res.ok){ console.error('media.json not found'); return; }
+  const data = await res.json();
+
+  if(data.featured){
+    hero.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.8)), url(${data.featured.cover})`;
+    heroTitle.textContent = data.featured.title || 'Featured';
+    hero.onclick = ()=> playMedia(data.featured.file);
+  }
+
+  (data.movies || []).forEach(m => addCard(moviesNode, m.cover, m.title, ()=> playMedia(m.file)));
+  (data.shows || []).forEach(s => addCard(showsNode, s.cover, s.title, ()=> openEpisodes(s)));
+  (data.games || []).forEach(g => addCard(gamesNode, g.cover, g.title, ()=> window.open(g.file, '_blank')));
+}
+
+function addCard(parent, cover, title, onClick){
+  const div = document.createElement('div'); div.className = 'card';
+  div.innerHTML = `<img src="${cover}" alt="${title}"><div class="card-title">${title}</div>`;
+  div.onclick = onClick; parent.appendChild(div);
+}
+
+function openEpisodes(show){
+  // small episode picker (replace with a modal if you want)
+  const list = show.episodes.map((e,i)=>`${i+1}. ${e.title}`).join('\\n');
+  const pick = prompt(`Episodes for ${show.title}\\n\\n${list}\\n\\nEnter number to play:`);
+  const idx = parseInt(pick)-1;
+  if(!isNaN(idx) && idx>=0 && idx<show.episodes.length) playMedia(show.episodes[idx].file);
+}
+
+async function playMedia(path){
+  // cleanup
+  if(currentBlobURL){ URL.revokeObjectURL(currentBlobURL); currentBlobURL = null; }
+
+  if(path.match(/\\.mp4$|\\.webm$|\\.ogg$/i)){
+    openPlayer(path);
+    return;
+  }
+
+  // fallback: transcode in-browser
+  xfile.textContent = `Loading engine...`;
+  xbar.style.width = '0%';
+  xcode.style.display = 'block';
+
+  if(!ffmpegLoaded){ await ffmpeg.load(); ffmpegLoaded = true;
+    ffmpeg.setProgress(({ratio})=>{ xbar.style.width = Math.round(ratio*100) + '%'; });
+  }
+
+  const IN = 'input';
+  const OUT = 'out.mp4';
+  const data = await fetchFile(path);
+
+  try{ ffmpeg.FS('unlink', IN); }catch(e){}
+  try{ ffmpeg.FS('unlink', OUT); }catch(e){}
+
+  xfile.textContent = 'Writing input to memory...';
+  ffmpeg.FS('writeFile', IN, data);
+  xfile.textContent = 'Transcoding (this is CPU heavy)...';
+
+  await ffmpeg.run('-i', IN, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24', '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', OUT);
+
+  xfile.textContent = 'Finalizing...';
+  const outData = ffmpeg.FS('readFile', OUT);
+  const blob = new Blob([outData.buffer], { type: 'video/mp4' });
+  currentBlobURL = URL.createObjectURL(blob);
+  xcode.style.display = 'none';
+  openPlayer(currentBlobURL);
+}
+
+function openPlayer(src){
+  player.style.display = 'flex';
+  video.src = src;
+  video.play().catch(()=>{});
+  downloadBtn.onclick = ()=> {
+    const a = document.createElement('a'); a.href = src; a.download = (src.split('/').pop()||'video.mp4'); document.body.appendChild(a); a.click(); a.remove();
+  };
+}
+
+closeBtn.onclick = ()=>{ player.style.display='none'; video.pause(); video.src=''; if(currentBlobURL){ URL.revokeObjectURL(currentBlobURL); currentBlobURL=null; } };
+xcancel.onclick = ()=>{ xcode.style.display='none'; alert('Cancel is a UI hint; full abort may require page reload'); };
+
+loadLibrary();
+</script>
+</body>
+</html>
