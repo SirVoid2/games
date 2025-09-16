@@ -1,0 +1,13 @@
+{
+  "movies": [
+    { "title": "Inception", "cover": "covers/inception.jpg", "file": "movies/inception.mkv" },
+    { "title": "Avatar", "cover": "covers/avatar.jpg", "file": "movies/avatar.mp4" }
+  ],
+  "shows": [
+    { "title": "Breaking Bad", "cover": "covers/breakingbad.jpg", "episodes": [
+        { "title": "S1E1", "file": "shows/breakingbad/s1e1.mkv" },
+        { "title": "S1E2", "file": "shows/breakingbad/s1e2.mkv" }
+      ]
+    }
+  ]
+}
