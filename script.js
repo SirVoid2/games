@@ -1,6 +1,4 @@
-// =======================
 // SEARCH FUNCTIONALITY
-// =======================
 const input = document.querySelector('.search input');
 const games = document.querySelectorAll('#games img');
 
@@ -11,54 +9,9 @@ input.addEventListener('input', () => {
   });
 });
 
-// =======================
-// MEDIA HUB (Movies/Shows)
-// =======================
-import { createFFmpeg, fetchFile } from "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js";
-
-const ffmpeg = createFFmpeg({ log: true });
+// VIDEO PLAYER
 const video = document.getElementById("video");
 const player = document.getElementById("player");
-
-async function loadMedia() {
-  const res = await fetch("media.json");
-  const data = await res.json();
-
-  // Movies
-  data.movies.forEach(m => addCard("movies", m.title, m.cover, () => playMedia(m.file)));
-
-  // Shows (auto-play first episode)
-  data.shows.forEach(s => {
-    addCard("shows", s.title, s.cover, () => playMedia(s.episodes[0].file));
-  });
-}
-
-function addCard(sectionId, title, cover, onClick) {
-  const section = document.getElementById(sectionId).querySelector(".carousel");
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `<img src="${cover}" alt="${title}">`;
-  card.onclick = onClick;
-  section.appendChild(card);
-}
-
-// =======================
-// VIDEO PLAYER
-// =======================
-async function playMedia(filePath) {
-  if (filePath.endsWith(".mp4")) {
-    openPlayer(filePath);
-  } else if (filePath.endsWith(".mkv")) {
-    await ffmpeg.load();
-    ffmpeg.FS("writeFile", "input.mkv", await fetchFile(filePath));
-    await ffmpeg.run("-i", "input.mkv", "-c:v", "libx264", "-c:a", "aac", "output.mp4");
-    const data = ffmpeg.FS("readFile", "output.mp4");
-    const blob = new Blob([data.buffer], { type: "video/mp4" });
-    openPlayer(URL.createObjectURL(blob));
-  } else {
-    alert("Unsupported file type: " + filePath);
-  }
-}
 
 function openPlayer(src) {
   video.src = src;
@@ -72,7 +25,37 @@ function closePlayer() {
   video.src = "";
 }
 
-// =======================
+// MEDIA HUB
+async function loadMedia() {
+  try {
+    const res = await fetch("media.json");
+    if (!res.ok) throw new Error("Cannot fetch media.json");
+    const data = await res.json();
+
+    // Movies
+    const moviesSection = document.querySelector("#movies .carousel");
+    data.movies.forEach(movie => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<img src="${movie.cover}" alt="${movie.title}">`;
+      card.addEventListener("click", () => openPlayer(movie.file));
+      moviesSection.appendChild(card);
+    });
+
+    // Shows
+    const showsSection = document.querySelector("#shows .carousel");
+    data.shows.forEach(show => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<img src="${show.cover}" alt="${show.title}">`;
+      card.addEventListener("click", () => openPlayer(show.episodes[0].file));
+      showsSection.appendChild(card);
+    });
+
+  } catch (err) {
+    console.error("Error loading media:", err);
+  }
+}
+
 // INIT
-// =======================
 loadMedia();
