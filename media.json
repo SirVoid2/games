@@ -1,7 +1,7 @@
 {
   "movies": [
-    { "title": "Inception", "cover": "covers/inception.jpg", "file": "movies/inception.mkv" },
-    { "title": "Avatar", "cover": "covers/avatar.jpg", "file": "movies/avatar.mp4" }
+    { "title": "Superman", "cover": "movies/Superman/Superman-2025.jpg", "file": "movies/Superman/Superman-2025.mkv" },
+    { "title": "Avatar", "cover": "movies/Avatar/Avatar.jpg", "file": "movies/Avatar/Avatar.mp4" }
   ],
   "shows": [
     { "title": "Breaking Bad", "cover": "covers/breakingbad.jpg", "episodes": [
