@@ -10,16 +10,59 @@
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
 <body>
+  <!-- NAV -->
   <nav>
     <img src="images/logo.png" alt="logo">
     <h1>Emilio 67</h1>
+    <ul class="nav-links">
+      <li><a href="#movies">Movies</a></li>
+      <li><a href="#shows">Shows</a></li>
+      <li><a href="#games">Games</a></li>
+    </ul>
   </nav>
+
+  <!-- FEATURED GAMES -->
+  <div class="featured">
+    <h1>Popular:</h1>
+    <div class="column">
+      <a href="games/Moto X3M/">
+        <img src="games/Moto X3M/moto-x3m.jpg">
+        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+      </a>
+      <a href="games/Drive Mad/">
+        <img src="games/Drive Mad/drive-mad.jpg">
+        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+      </a>
+    </div>
+    <div class="row">
+      <a href="games/Retro Bowl/">
+        <img src="games/Retro Bowl/retro-bowl.jpg">
+        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+      </a>
+    </div>
+    <div class="row">
+      <a href="games/Retro Bowl College/">
+        <img src="games/Retro Bowl College/retro-bowl-college.png">
+        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+      </a>
+    </div>
+    <div class="column">
+      <a href="games/Minecraft/">
+        <img src="games/Minecraft/mc.png">
+        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+      </a>
+      <a href="games/1v1LoL/">
+        <img src="games/1v1LoL/1v1lol.jpeg">
+        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+      </a>
+    </div>
+  </div>
 
   <!-- SEARCH + GAME GRID -->
   <div class="content">
     <hr>
     <div class="search">
-      <input type="text" placeholder="Search..." oninput="">
+      <input type="text" placeholder="Search...">
       <button><i class="fas fa-search"></i></button>
     </div>
 
@@ -38,16 +81,16 @@
 
   <!-- MEDIA HUB -->
   <hr>
-  <div class="row">
+  <div class="row" id="movies">
     <h2>🎬 Movies</h2>
-    <div id="movies" class="carousel"></div>
+    <div class="carousel"></div>
   </div>
-  <div class="row">
+  <div class="row" id="shows">
     <h2>📺 Shows</h2>
-    <div id="shows" class="carousel"></div>
+    <div class="carousel"></div>
   </div>
 
-  <!-- Video Player Modal -->
+  <!-- VIDEO PLAYER -->
   <div id="player">
     <video id="video" controls></video>
     <button onclick="closePlayer()">Close</button>

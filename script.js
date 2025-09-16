@@ -1,6 +1,9 @@
-// GAME SEARCH
+// =======================
+// SEARCH FUNCTIONALITY
+// =======================
 const input = document.querySelector('.search input');
 const games = document.querySelectorAll('#games img');
+
 input.addEventListener('input', () => {
   const searchTerm = input.value.toLowerCase();
   games.forEach(game => {
@@ -8,7 +11,9 @@ input.addEventListener('input', () => {
   });
 });
 
-// MEDIA HUB
+// =======================
+// MEDIA HUB (Movies/Shows)
+// =======================
 import { createFFmpeg, fetchFile } from "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js";
 
 const ffmpeg = createFFmpeg({ log: true });
@@ -19,13 +24,17 @@ async function loadMedia() {
   const res = await fetch("media.json");
   const data = await res.json();
 
+  // Movies
   data.movies.forEach(m => addCard("movies", m.title, m.cover, () => playMedia(m.file)));
-  data.shows.forEach(s => addCard("shows", s.title, s.cover, () => playMedia(s.episodes[0].file)));
-  data.games.forEach(g => addCard("mediagames", g.title, g.cover, () => window.open(g.file, "_blank")));
+
+  // Shows (auto-play first episode)
+  data.shows.forEach(s => {
+    addCard("shows", s.title, s.cover, () => playMedia(s.episodes[0].file));
+  });
 }
 
 function addCard(sectionId, title, cover, onClick) {
-  const section = document.getElementById(sectionId);
+  const section = document.getElementById(sectionId).querySelector(".carousel");
   const card = document.createElement("div");
   card.className = "card";
   card.innerHTML = `<img src="${cover}" alt="${title}">`;
@@ -33,6 +42,9 @@ function addCard(sectionId, title, cover, onClick) {
   section.appendChild(card);
 }
 
+// =======================
+// VIDEO PLAYER
+// =======================
 async function playMedia(filePath) {
   if (filePath.endsWith(".mp4")) {
     openPlayer(filePath);
@@ -53,10 +65,14 @@ function openPlayer(src) {
   player.style.display = "flex";
   video.play();
 }
+
 function closePlayer() {
   player.style.display = "none";
   video.pause();
   video.src = "";
 }
 
+// =======================
+// INIT
+// =======================
 loadMedia();
