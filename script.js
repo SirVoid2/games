@@ -25,12 +25,11 @@ fetch("games.json")
         const item = document.createElement("div");
         item.className = "game-item";
 
-        // If visible, show image and title
         if (game.visible) {
           item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
           item.onclick = () => window.location.href = game.url;
         } else {
-          // Placeholder: empty but still styled
+          // Placeholder element, invisible but still occupies space
           item.innerHTML = `<div class="placeholder"></div>`;
         }
 
@@ -39,7 +38,7 @@ fetch("games.json")
 
       carouselContainer.appendChild(carousel);
 
-      // Scroll buttons (always visible)
+      // Scroll buttons
       const leftBtn = document.createElement("button");
       leftBtn.className = "scroll-btn left";
       leftBtn.innerHTML = "&#10094;";
@@ -97,7 +96,12 @@ function initSearch() {
     document.querySelectorAll(".game-item").forEach(item => {
       const titleEl = item.querySelector("p");
       const title = titleEl ? titleEl.textContent.toLowerCase() : "";
-      item.style.display = title.includes(term) ? "block" : "flex";
+      // Only visible items are filtered
+      if (title === "") {
+        item.style.display = "flex"; // keep placeholder in layout
+      } else {
+        item.style.display = title.includes(term) ? "flex" : "none";
+      }
     });
   });
 }

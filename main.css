@@ -185,6 +185,8 @@ nav h1 {
 .game-item .placeholder {
   width: 100%;
   height: 100%;
-  visibility: hidden; /* keeps space but hides content */
+  visibility: hidden;  /* keeps layout space but hides completely */
+  pointer-events: none; /* cannot be clicked */
+  background: none;     /* no background */
+  box-shadow: none;     /* remove any shadow */
 }
-
