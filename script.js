@@ -10,7 +10,7 @@ fetch("games.json")
 
       // Section title
       const h2 = document.createElement("h2");
-      h2.textContent = `🎮 ${sectionName}`;
+      h2.textContent = ` ${sectionName}`;
       sectionDiv.appendChild(h2);
 
       // Carousel container
