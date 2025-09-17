@@ -6,7 +6,12 @@
     { "title": "Drive Mad", "cover": "games/Drive Mad/drive-mad.jpg", "url": "games/Drive Mad/index.html", "visible": true },
     { "title": "1v1LoL", "cover": "games/1v1LoL/1v1lol.jpeg", "url": "games/1v1LoL/index.html", "visible": true },
     { "title": "Minecraft", "cover": "games/Minecraft/mc.png", "url": "games/Minecraft/index.html", "visible": true },
-    { "title": "Emulator JS", "cover": "games/YouTube/youtube.png", "url": "games/YouTube/index.html", "visible": true },
+    { "title": "Crossy Road", "cover": "games/Crossy Road/crossy-road.webp", "url": "games/Crossy Road/index.html", "visible": true },
+    { "title": "Bloxorz", "cover": "games/Bloxorz/bloxorz.jpg", "url": "games/Bloxorz/index.html", "visible": true },
+    { "title": "Moto X3M", "cover": "games/Moto X3M/moto-x3m.jpg", "url": "games/Moto X3M/index.html", "visible": true },
+    { "title": "Moto X3M 2", "cover": "games/Moto X3M 2/moto-x3m2.jpg", "url": "games/Moto X3M 2/index.html", "visible": true },
+    { "title": "Fruit Ninja", "cover": "games/Fruit Ninja/fruit-ninja.png", "url": "games/Fruit Ninja/index.html", "visible": true },
+    { "title": "Emulator JS", "cover": "games/Emulator JS/emulator-js.png", "url": "games/Emulator JS/index.html", "visible": true },
     { "title": "Google Maps", "cover": "games/Google Maps/google-maps.png", "url": "games/Google Maps/index.html", "visible": true },
     { "title": "" }
   ],
@@ -20,6 +25,11 @@
     { "title": "" }
   ],
   "Mobile": [
+    { "title": "Crossy Road", "cover": "games/Crossy Road/crossy-road.webp", "url": "games/Crossy Road/index.html", "visible": true },
+    { "title": "Bloxorz", "cover": "games/Bloxorz/bloxorz.jpg", "url": "games/Bloxorz/index.html", "visible": true },
+    { "title": "Moto X3M", "cover": "games/Moto X3M/moto-x3m.jpg", "url": "games/Moto X3M/index.html", "visible": true },
+    { "title": "Moto X3M 2", "cover": "games/Moto X3M 2/moto-x3m2.jpg", "url": "games/Moto X3M 2/index.html", "visible": true },
+    { "title": "Fruit Ninja", "cover": "games/Fruit Ninja/fruit-ninja.png", "url": "games/Fruit Ninja/index.html", "visible": true },
     { "title": "Ant Art Tycoon", "cover": "games/Ant Art Tycoon/ant-art-tycoon.png", "url": "games/Ant Art Tycoon/index.html", "visible": true },
     { "title": "Drive Mad", "cover": "games/Drive Mad/drive-mad.jpg", "url": "games/Drive Mad/index.html", "visible": true },
     { "title": "" }
