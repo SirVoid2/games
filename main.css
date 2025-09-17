@@ -83,16 +83,16 @@ nav h1 {
 /* CAROUSELS */
 .carousel-container {
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .carousel {
   display: flex;
-  gap: 20px; /* slightly more space between items */
+  gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  padding: 10px 40px; /* add padding so scroll buttons don’t overlap images */
+  padding: 10px 50px; /* space for scroll buttons */
 }
 
 .carousel::-webkit-scrollbar {
@@ -131,7 +131,7 @@ nav h1 {
   filter: brightness(1.05);
 }
 
-/* SCROLL ARROWS - SMALLER & OUTSIDE */
+/* SCROLL ARROWS */
 .scroll-btn {
   position: absolute;
   top: 50%;
