@@ -9,46 +9,46 @@
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
 <body>
-  <!-- NAV -->
+  <!-- NAVBAR -->
   <nav>
     <img src="images/logo.png" alt="logo">
     <h1>Emilio 67</h1>
     <ul class="nav-links">
       <li><a href="#movies">Movies</a></li>
-      <li><a href="#games">Games</a></li>
+      <li><a href="#games-section">Games</a></li>
     </ul>
   </nav>
-  <hr>
 
-  <!-- SEARCH -->
   <div class="content">
+    <!-- SEARCH BAR -->
     <div class="search">
       <input type="text" placeholder="Search...">
       <button><i class="fas fa-search"></i></button>
     </div>
 
-    <!-- Games -->
-    <div id="games">
-      <a href="games/Retro Bowl/"><img src="games/Retro Bowl/retro-bowl.jpg" alt="retrobowl"></a>
-      <a href="games/Retro Bowl College/"><img src="games/Retro Bowl College/retro-bowl-college.png" alt="retrobowl college"></a>
-      <a href="games/Emulator JS/"><img src="games/Emulator JS/emulator-js.png" alt="emulator"></a>
-      <a href="games/1v1LoL/"><img src="games/1v1LoL/1v1lol.jpeg" alt="1v1lol"></a>
-      <a href="games/Moto X3M/"><img src="games/Moto X3M/moto-x3m.jpg" alt="moto x3m"></a>
-      <a href="games/Moto X3M 2/"><img src="games/Moto X3M 2/motox3m2.jpg" alt="moto x3m2"></a>
-      <a href="games/Minecraft/"><img src="games/Minecraft/mc.png" alt="minecraft"></a>
-      <a href="games/Drive Mad/"><img src="games/Drive Mad/drive-mad.jpg" alt="drive mad"></a>
-      <a href="games/Ant Art Tycoon/"><img src="games/Ant Art Tycoon/ant-art-tycoon.png" alt="ant art tycoon"></a>
+    <!-- MOVIES CAROUSEL -->
+    <div class="row" id="movies">
+      <h2>🎬 Movies</h2>
+      <div class="carousel-container" data-section="movies">
+        <button class="scroll-btn left">&#10094;</button>
+        <div class="carousel"></div>
+        <button class="scroll-btn right">&#10095;</button>
+      </div>
+    </div>
+
+    <!-- GAMES CAROUSEL -->
+    <div class="row" id="games-section">
+      <h2>🎮 Games</h2>
+      <div class="games-container" data-section="games">
+        <button class="scroll-btn left">&#10094;</button>
+        <div id="games"></div>
+        <button class="scroll-btn right">&#10095;</button>
+      </div>
     </div>
   </div>
 
-  <!-- Movies -->
-  <div class="row" id="movies">
-    <h2>🎬 Movies</h2>
-    <div class="carousel" id="movie-carousel"></div>
-  </div>
-
-  <!-- Video Player -->
-  <div id="player" style="display:none;">
+  <!-- VIDEO PLAYER -->
+  <div id="player">
     <video id="video" controls autoplay></video>
     <button onclick="closePlayer()">Close</button>
   </div>
