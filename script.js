@@ -1,14 +1,16 @@
-// Load media.json
+// Fetch media.json and populate sections
 fetch("media.json")
   .then(res => res.json())
   .then(data => {
-    loadMovies(data.movies);
-    loadGames(data.games);
+    loadMovies(data.movies || []);
+    loadGames(data.games || []);
+    initCarousels();
   });
 
 // Load Movies
 function loadMovies(movies) {
   const container = document.querySelector("#movies .carousel");
+  container.innerHTML = ""; // clear first
   movies.forEach(movie => {
     const item = document.createElement("div");
     item.className = "movie-item";
@@ -21,16 +23,20 @@ function loadMovies(movies) {
 // Load Games
 function loadGames(games) {
   const container = document.getElementById("games");
+  container.innerHTML = ""; // clear first
   games.forEach(game => {
     const item = document.createElement("a");
     item.href = "#";
     item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-    item.onclick = () => alert("Game launch not implemented"); 
+    item.onclick = e => {
+      e.preventDefault();
+      alert("Game launch not implemented");
+    };
     container.appendChild(item);
   });
 }
 
-// Video Player
+// Video player functions
 function playVideo(src) {
   const player = document.getElementById("player");
   const video = document.getElementById("video");
@@ -47,34 +53,28 @@ function closePlayer() {
   player.style.display = "none";
 }
 
-// Infinite scroll + center highlight
+// Initialize carousels with center highlight and arrows
 function initCarousels() {
   document.querySelectorAll(".carousel-container, .games-container").forEach(container => {
     const carousel = container.querySelector(".carousel") || container.querySelector("#games");
     const leftBtn = container.querySelector(".scroll-btn.left");
     const rightBtn = container.querySelector(".scroll-btn.right");
 
+    // Scroll function
     function scroll(direction) {
-      const scrollAmount = carousel.clientWidth * 0.9;
+      const scrollAmount = carousel.clientWidth * 0.8; // 80% width scroll
       if (direction === 1) {
-        if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
-          carousel.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
-        }
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
       } else {
-        if (carousel.scrollLeft <= 10) {
-          carousel.scrollTo({ left: carousel.scrollWidth - carousel.clientWidth, behavior: "smooth" });
-        } else {
-          carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-        }
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
       }
-      setTimeout(() => updateCenterHighlight(carousel), 400);
+      setTimeout(() => updateCenterHighlight(carousel), 300);
     }
 
     leftBtn.addEventListener("click", () => scroll(-1));
     rightBtn.addEventListener("click", () => scroll(1));
 
+    // Center highlight
     function updateCenterHighlight(carousel) {
       const items = carousel.querySelectorAll(".movie-item, #games a");
       const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
@@ -84,10 +84,15 @@ function initCarousels() {
       });
     }
 
+    // On scroll and resize
     carousel.addEventListener("scroll", () => updateCenterHighlight(carousel));
     window.addEventListener("resize", () => updateCenterHighlight(carousel));
-    updateCenterHighlight(carousel);
+
+    // Center first item on load
+    const firstItem = carousel.querySelector(".movie-item, #games a");
+    if (firstItem) {
+      carousel.scrollLeft = firstItem.offsetLeft - (carousel.clientWidth - firstItem.offsetWidth)/2;
+      updateCenterHighlight(carousel);
+    }
   });
 }
-
-document.addEventListener("DOMContentLoaded", initCarousels);
