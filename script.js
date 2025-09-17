@@ -29,7 +29,6 @@ fetch("games.json")
           item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
           item.onclick = () => window.location.href = game.url;
         } else {
-          // Placeholder element, invisible but still occupies space
           item.innerHTML = `<div class="placeholder"></div>`;
         }
 
@@ -38,28 +37,26 @@ fetch("games.json")
 
       carouselContainer.appendChild(carousel);
 
-      // Scroll buttons
+      // LEFT SCROLL BUTTON
       const leftBtn = document.createElement("button");
       leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;";
+      leftBtn.innerHTML = "&#10094;"; // left arrow
+      leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
+      });
       carouselContainer.appendChild(leftBtn);
 
+      // RIGHT SCROLL BUTTON
       const rightBtn = document.createElement("button");
       rightBtn.className = "scroll-btn right";
-      rightBtn.innerHTML = "&#10095;";
+      rightBtn.innerHTML = "&#10095;"; // right arrow
+      rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
+      });
       carouselContainer.appendChild(rightBtn);
 
       sectionDiv.appendChild(carouselContainer);
       container.appendChild(sectionDiv);
-
-      // Scroll functionality
-      leftBtn.addEventListener("click", () => {
-        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
-      });
-
-      rightBtn.addEventListener("click", () => {
-        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
-      });
 
       // Center highlight effect
       function highlightCenter() {
@@ -96,12 +93,7 @@ function initSearch() {
     document.querySelectorAll(".game-item").forEach(item => {
       const titleEl = item.querySelector("p");
       const title = titleEl ? titleEl.textContent.toLowerCase() : "";
-      // Only visible items are filtered
-      if (title === "") {
-        item.style.display = "flex"; // keep placeholder in layout
-      } else {
-        item.style.display = title.includes(term) ? "flex" : "none";
-      }
+      item.style.display = title === "" ? "flex" : title.includes(term) ? "flex" : "none";
     });
   });
 }
