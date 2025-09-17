@@ -25,7 +25,10 @@ fetch("games.json")
       const carousel = document.createElement("div");
       carousel.className = "carousel";
 
+      // Render only visible games
       data[sectionName].forEach(game => {
+        if (game.visible === false) return; // skip invisible items
+
         const item = document.createElement("div");
         item.className = "game-item";
         item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
@@ -44,8 +47,12 @@ fetch("games.json")
       container.appendChild(sectionDiv);
 
       // Scroll functionality
-      leftBtn.addEventListener("click", () => carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" }));
-      rightBtn.addEventListener("click", () => carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" }));
+      leftBtn.addEventListener("click", () =>
+        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" })
+      );
+      rightBtn.addEventListener("click", () =>
+        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" })
+      );
 
       // Center highlight effect
       function highlightCenter() {
