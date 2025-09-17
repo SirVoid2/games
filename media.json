@@ -1,6 +1,6 @@
 {
   "movies": [
-    { "title": "Superman", "cover": "movies/Superman/Superman-2025.jpg", "file": "movies/Superman/Superman-2025.mkv" },
+    { "title": "Superman", "cover": "movies/Superman/Superman-2025.jpg", "file": "movies/Superman/Superman-2025.mp4" },
     { "title": "Avatar", "cover": "movies/Avatar/Avatar.jpg", "file": "movies/Avatar/Avatar.mp4" }
   ],
   "shows": [
