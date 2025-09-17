@@ -22,12 +22,18 @@ fetch("games.json")
 
       // Render games
       data[sectionName].forEach(game => {
-        if (game.visible === false) return; // skip invisible items
-
         const item = document.createElement("div");
         item.className = "game-item";
-        item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-        item.onclick = () => window.location.href = game.url;
+
+        // If visible, show image and title
+        if (game.visible) {
+          item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
+          item.onclick = () => window.location.href = game.url;
+        } else {
+          // Placeholder: empty but still styled
+          item.innerHTML = `<div class="placeholder"></div>`;
+        }
+
         carousel.appendChild(item);
       });
 
@@ -36,12 +42,12 @@ fetch("games.json")
       // Scroll buttons (always visible)
       const leftBtn = document.createElement("button");
       leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;"; // ‹
+      leftBtn.innerHTML = "&#10094;";
       carouselContainer.appendChild(leftBtn);
 
       const rightBtn = document.createElement("button");
       rightBtn.className = "scroll-btn right";
-      rightBtn.innerHTML = "&#10095;"; // ›
+      rightBtn.innerHTML = "&#10095;";
       carouselContainer.appendChild(rightBtn);
 
       sectionDiv.appendChild(carouselContainer);
@@ -89,8 +95,9 @@ function initSearch() {
   input.addEventListener("input", () => {
     const term = input.value.toLowerCase();
     document.querySelectorAll(".game-item").forEach(item => {
-      const title = item.querySelector("p").textContent.toLowerCase();
-      item.style.display = title.includes(term) ? "block" : "none";
+      const titleEl = item.querySelector("p");
+      const title = titleEl ? titleEl.textContent.toLowerCase() : "";
+      item.style.display = title.includes(term) ? "block" : "flex";
     });
   });
 }
