@@ -106,6 +106,7 @@ nav h1 {
   height: 150px;
   text-align: center;
   transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
 }
 
 .game-item img {
@@ -117,8 +118,9 @@ nav h1 {
   transition: transform 0.3s, filter 0.3s;
 }
 
-.game-item:hover {
-  transform: scale(1.08);
+.game-item.hovered {
+  box-shadow: 0 0 10px #007BFF; /* Blue glow, customize as needed */
+  transform: scale(1.05);
 }
 
 .game-item:hover img {

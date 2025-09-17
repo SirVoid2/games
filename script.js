@@ -32,6 +32,16 @@ fetch("games.json")
           item.innerHTML = `<div class="placeholder"></div>`;
         }
 
+        // Add hover highlight logic
+        item.addEventListener("mouseenter", () => {
+          document.querySelectorAll(".game-item").forEach(el => el.classList.remove("hovered"));
+          item.classList.add("hovered");
+        });
+
+        item.addEventListener("mouseleave", () => {
+          item.classList.remove("hovered");
+        });
+
         carousel.appendChild(item);
       });
 
