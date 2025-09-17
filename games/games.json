@@ -1,0 +1,18 @@
+{
+  "All": [
+    { "title": "Retro Bowl", "cover": "Retro Bowl/retro-bowl.jpg", "url": "Retro Bowl", "visible": true },
+    { "title": "Retro Bowl College", "cover": "Retro Bowl College/retro-bowl-college.png", "url": "games/Retro Bowl College", "visible": true },
+    { "title": "Ant Art Tycoon", "cover": "Ant Art Tycoon/ant-art-tycoon.png", "url": "games/Ant Art Tycoon", "visible": true },
+    { "title": "Drive Mad", "cover": "Drive Mad/drive-mad.jpg", "url": "games/Drive Mad", "visible": true },
+    { "title": "1v1LoL", "cover": "1v1LoL/1v1lol.jpeg", "url": "games/1v1LoL", "visible": true },
+    { "title": "Minecraft", "cover": "Minecraft/mc.png", "url": "games/Minecraft", "visible": true },
+    { "title": "Crossy Road", "cover": "Crossy Road/crossy-road.webp", "url": "games/Crossy Road", "visible": true },
+    { "title": "Bloxorz", "cover": "Bloxorz/bloxorz.jpg", "url": "games/Bloxorz", "visible": true },
+    { "title": "Moto X3M", "cover": "Moto X3M/moto-x3m.jpg", "url": "games/Moto X3M", "visible": true },
+    { "title": "Moto X3M 2", "cover": "Moto X3M 2/moto-x3m2.jpg", "url": "games/Moto X3M 2", "visible": true },
+    { "title": "Fruit Ninja", "cover": "Fruit Ninja/fruit-ninja.png", "url": "games/Fruit Ninja", "visible": true },
+    { "title": "Drift Boss", "cover": "Drift Boss/drift-boss.png", "url": "games/Drift Boss", "visible": true },
+    { "title": "" }
+  ]
+}
+ 
