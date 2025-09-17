@@ -99,6 +99,11 @@ nav h1 {
   display: none;
 }
 
+/* HIDE LAST RIGHT SCROLL BUTTON */
+.carousel-container:last-child .scroll-btn.right {
+  display: none;
+}
+
 /* THUMBNAILS - SQUARE */
 .game-item {
   flex: 0 0 auto;
@@ -129,11 +134,6 @@ nav h1 {
 .carousel .game-item.centered img {
   transform: scale(1.12);
   filter: brightness(1.05);
-}
-
-/* HIDE LAST RIGHT SCROLL BUTTON */
-.carousel-container:last-child .scroll-btn.right {
-  display: none;
 }
 
 /* SCROLL ARROWS - FIXED VERTICAL CENTER & SIZE */
