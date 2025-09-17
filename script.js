@@ -32,15 +32,7 @@ fetch("games.json")
           item.innerHTML = `<div class="placeholder"></div>`;
         }
 
-        // Add hover highlight logic
-        item.addEventListener("mouseenter", () => {
-          document.querySelectorAll(".game-item").forEach(el => el.classList.remove("hovered"));
-          item.classList.add("hovered");
-        });
-
-        item.addEventListener("mouseleave", () => {
-          item.classList.remove("hovered");
-        });
+        // No hover highlight logic here
 
         carousel.appendChild(item);
       });
@@ -68,7 +60,8 @@ fetch("games.json")
       sectionDiv.appendChild(carouselContainer);
       container.appendChild(sectionDiv);
 
-      // Center highlight effect
+      // Center highlight effect (removed)
+      /*
       function highlightCenter() {
         const items = carousel.querySelectorAll(".game-item");
         const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
@@ -89,6 +82,7 @@ fetch("games.json")
 
       carousel.addEventListener("scroll", highlightCenter);
       highlightCenter(); // initial highlight
+      */
     }
 
     initSearch();
