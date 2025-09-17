@@ -99,10 +99,6 @@ nav h1 {
   display: none;
 }
 
-/* HIDE LAST RIGHT SCROLL BUTTON */
-.carousel-container:last-child .scroll-btn.right {
-  display: none;
-}
 
 /* THUMBNAILS - SQUARE */
 .game-item {
@@ -168,6 +164,11 @@ nav h1 {
 .scroll-btn:hover {
   background: rgba(20, 20, 20, 0.95);
   transform: translateY(-50%); /* removed scale to keep size constant */
+}
+
+/* HIDE LAST RIGHT SCROLL BUTTON */
+.carousel-container:last-child .scroll-btn.right {
+  display: none;
 }
 
 /* GAME TITLE BELOW THUMBNAIL */
