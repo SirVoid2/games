@@ -10,7 +10,7 @@ fetch("games.json")
 
       // Section title
       const h2 = document.createElement("h2");
-      h2.textContent = `${sectionName}`;
+      h2.textContent = sectionName;
       sectionDiv.appendChild(h2);
 
       // Carousel container
@@ -20,7 +20,7 @@ fetch("games.json")
       const carousel = document.createElement("div");
       carousel.className = "carousel";
 
-      // Render only visible games
+      // Render games
       data[sectionName].forEach(game => {
         if (game.visible === false) return; // skip invisible items
 
@@ -33,39 +33,28 @@ fetch("games.json")
 
       carouselContainer.appendChild(carousel);
 
-      // Scroll buttons
+      // Scroll buttons (always visible)
       const leftBtn = document.createElement("button");
       leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;";
+      leftBtn.innerHTML = "&#10094;"; // ‹
       carouselContainer.appendChild(leftBtn);
 
       const rightBtn = document.createElement("button");
       rightBtn.className = "scroll-btn right";
-      rightBtn.innerHTML = "&#10095;";
+      rightBtn.innerHTML = "&#10095;"; // ›
       carouselContainer.appendChild(rightBtn);
 
       sectionDiv.appendChild(carouselContainer);
       container.appendChild(sectionDiv);
 
       // Scroll functionality
-      leftBtn.addEventListener("click", () =>
-        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" })
-      );
-      rightBtn.addEventListener("click", () =>
-        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" })
-      );
+      leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
+      });
 
-      // Hide buttons if scrolling not possible
-      function updateScrollButtons() {
-        leftBtn.style.display = carousel.scrollLeft > 0 ? "flex" : "none";
-        rightBtn.style.display =
-          carousel.scrollWidth - carousel.clientWidth - carousel.scrollLeft > 5
-            ? "flex"
-            : "none";
-      }
-
-      updateScrollButtons();
-      carousel.addEventListener("scroll", updateScrollButtons);
+      rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
+      });
 
       // Center highlight effect
       function highlightCenter() {
