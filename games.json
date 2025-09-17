@@ -6,7 +6,7 @@
   ],
   "Mobile": [
     { "title": "Emulator JS", "cover": "games/Emulator JS/emulator-js.png", "url": "games/Emulator JS/index.html" },
-    { "title": "1v1LoL", "cover": "games/1v1LoL/1v1lol.jpeg", "url": "games/1v1LoL/index.html" }
+    { "title": "1v1LoL", "cover": "games/1v1LoL/1v1lol.jpeg", "url": "games/1v1LoL/index.html" },
     { "title": "", "cover": "", "url": "" }
   ],
   "Idle": [
