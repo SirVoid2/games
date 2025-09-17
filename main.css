@@ -42,7 +42,7 @@ nav h1 {
 /* SEARCH BAR */
 .search {
   display: flex;
-  margin: 20px 0 40px;
+  margin: 30px 0 40px;
   max-width: 500px;
 }
 
@@ -102,12 +102,12 @@ nav h1 {
   display: none;
 }
 
-/* THUMBNAILS - HORIZONTAL RECTANGLES */
+/* THUMBNAILS - VERTICAL 1080x1920 style */
 .movie-item,
 #games a {
   flex: 0 0 auto;
-  width: 200px;       /* horizontal rectangle */
-  height: 120px;
+  width: 180px;      /* vertical rectangle width */
+  height: 320px;     /* vertical rectangle height */
   text-align: center;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -117,8 +117,8 @@ nav h1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  border-radius: 12px;   /* rounded corners */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.7);
   transition: transform 0.3s, filter 0.3s;
 }
 
@@ -147,7 +147,7 @@ nav h1 {
   background: rgba(20, 20, 20, 0.7);
   border: none;
   color: #fff;
-  font-size: 24px; /* smaller than before */
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
   z-index: 5;
