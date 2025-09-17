@@ -12,6 +12,7 @@
     { "title": "Moto X3M 2", "cover": "games/Moto X3M 2/moto-x3m2.jpg", "url": "games/Moto X3M 2", "visible": true },
     { "title": "Fruit Ninja", "cover": "games/Fruit Ninja/fruit-ninja.png", "url": "games/Fruit Ninja", "visible": true },
     { "title": "Drift Boss", "cover": "games/Drift Boss/drift-boss.png", "url": "games/Drift Boss", "visible": true },
+    { "title": "" }
   ],
 
   "Apps": [
