@@ -149,7 +149,8 @@ nav h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition: background 0.2s, opacity 0.3s;
+  opacity: 1;
 }
 
 .scroll-btn.left {
@@ -165,6 +166,11 @@ nav h1 {
 .scroll-btn:hover {
   background: rgba(20, 20, 20, 0.95);
   transform: translateY(-50%);
+}
+
+.scroll-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* GAME TITLE BELOW THUMBNAIL */
