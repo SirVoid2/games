@@ -12,7 +12,7 @@
     { "title": "Moto X3M 2", "cover": "games/Moto X3M 2/moto-x3m2.jpg", "url": "games/Moto X3M 2/index.html", "visible": true },
     { "title": "Fruit Ninja", "cover": "games/Fruit Ninja/fruit-ninja.png", "url": "games/Fruit Ninja/index.html", "visible": true },
     { "title": "Emu", "cover": "games/Emu/emulator-js.png", "url": "games/Emu/index.html", "visible": true },
-    { "title": "Google Maps", "cover": "games/Google Maps/google-maps.png", "url": "games/Google Maps/index.html", "visible": true },
+    { "title": "AI", "cover": "games/AI/ai.png", "url": "games/AI/index.html", "visible": true },
     { "title": "" }
   ],
   "Popular": [
