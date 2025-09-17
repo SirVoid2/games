@@ -1,15 +1,18 @@
 {
   "Popular": [
     { "title": "Retro Bowl", "cover": "games/Retro Bowl/retro-bowl.jpg", "url": "games/Retro Bowl/index.html" },
-    { "title": "Retro Bowl College", "cover": "games/Retro Bowl College/retro-bowl-college.png", "url": "games/Retro Bowl College/index.html" }
+    { "title": "Retro Bowl College", "cover": "games/Retro Bowl College/retro-bowl-college.png", "url": "games/Retro Bowl College/index.html" },
+    { "title": "", "cover": "", "url": "" }
   ],
   "Mobile": [
     { "title": "Emulator JS", "cover": "games/Emulator JS/emulator-js.png", "url": "games/Emulator JS/index.html" },
     { "title": "1v1LoL", "cover": "games/1v1LoL/1v1lol.jpeg", "url": "games/1v1LoL/index.html" }
+    { "title": "", "cover": "", "url": "" }
   ],
   "Idle": [
     { "title": "Minecraft", "cover": "games/Minecraft/mc.png", "url": "games/Minecraft/index.html" },
     { "title": "Drive Mad", "cover": "games/Drive Mad/drive-mad.jpg", "url": "games/Drive Mad/index.html" },
-    { "title": "Ant Art Tycoon", "cover": "games/Ant Art Tycoon/ant-art-tycoon.png", "url": "games/Ant Art Tycoon/index.html" }
+    { "title": "Ant Art Tycoon", "cover": "games/Ant Art Tycoon/ant-art-tycoon.png", "url": "games/Ant Art Tycoon/index.html" },
+    { "title": "", "cover": "", "url": "" }
   ]
 }
