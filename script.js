@@ -58,6 +58,29 @@ fetch("games.json")
       sectionDiv.appendChild(carouselContainer);
       container.appendChild(sectionDiv);
 
+      // Center highlight effect
+      function highlightCenter() {
+        const items = carousel.querySelectorAll(".game-item");
+        const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
+        items.forEach(item => item.classList.remove("centered"));
+
+        let closest = null;
+        let closestDistance = Infinity;
+        items.forEach(item => {
+          const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+          const distance = Math.abs(carouselCenter - itemCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closest = item;
+          }
+        });
+        if (closest) closest.classList.add("centered");
+      }
+
+      carousel.addEventListener("scroll", highlightCenter);
+      highlightCenter(); // initial highlight
+    }
+
     initSearch();
   })
   .catch(err => console.error("Failed to load games.json:", err));
