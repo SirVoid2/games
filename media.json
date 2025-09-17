@@ -1,8 +1,12 @@
 {
   "movies": [
-    { "title": "Superman", "cover": "movies/Superman/Superman-2025.jpg", "file": "movies/Superman/Superman-2025.mp4" },
-    { "title": "Avatar", "cover": "movies/Avatar/Avatar.jpg", "file": "movies/Avatar/Avatar.mp4" }
+    {
+      "title": "Superman via Drive",
+      "cover": "covers/superman.jpg",
+      "file": "https://drive.google.com/uc?export=download&id=17UAQfjCG65Nd1js3OMLl8JUBDzmKmWqA"
+    }
   ],
+
   "shows": [
     { "title": "Breaking Bad", "cover": "covers/breakingbad.jpg", "episodes": [
         { "title": "S1E1", "file": "shows/breakingbad/s1e1.mkv" },
