@@ -92,7 +92,7 @@ nav h1 {
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  padding: 10px 50px; /* space for scroll buttons */
+  padding: 10px 50px; /* leave space for scroll buttons */
 }
 
 .carousel::-webkit-scrollbar {
@@ -131,7 +131,7 @@ nav h1 {
   filter: brightness(1.05);
 }
 
-/* SCROLL ARROWS */
+/* SCROLL ARROWS - FIXED VERTICAL CENTER */
 .scroll-btn {
   position: absolute;
   top: 50%;
@@ -162,5 +162,16 @@ nav h1 {
 
 .scroll-btn:hover {
   background: rgba(20, 20, 20, 0.95);
-  transform: scale(1.1);
+  transform: translateY(-50%) scale(1.1); /* keeps vertical center on hover */
+}
+
+/* GAME TITLE BELOW THUMBNAIL */
+.game-item p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
