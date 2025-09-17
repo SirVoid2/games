@@ -31,6 +31,10 @@
   "Music": [
     { "title": "Music", "cover": "music/music.png", "url": "music", "visible": true },
     { "title": "" }
+  ],
+  "Books": [
+    { "title": "Books", "cover": "books/books.png", "url": "books", "visible": true },
+    { "title": "" }
   ]
 }
  
