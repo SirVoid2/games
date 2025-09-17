@@ -17,11 +17,6 @@ fetch("games.json")
       const carouselContainer = document.createElement("div");
       carouselContainer.className = "carousel-container";
 
-      const leftBtn = document.createElement("button");
-      leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;";
-      carouselContainer.appendChild(leftBtn);
-
       const carousel = document.createElement("div");
       carousel.className = "carousel";
 
@@ -37,6 +32,12 @@ fetch("games.json")
       });
 
       carouselContainer.appendChild(carousel);
+
+      // Scroll buttons
+      const leftBtn = document.createElement("button");
+      leftBtn.className = "scroll-btn left";
+      leftBtn.innerHTML = "&#10094;";
+      carouselContainer.appendChild(leftBtn);
 
       const rightBtn = document.createElement("button");
       rightBtn.className = "scroll-btn right";
@@ -54,11 +55,24 @@ fetch("games.json")
         carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" })
       );
 
+      // Hide buttons if scrolling not possible
+      function updateScrollButtons() {
+        leftBtn.style.display = carousel.scrollLeft > 0 ? "flex" : "none";
+        rightBtn.style.display =
+          carousel.scrollWidth - carousel.clientWidth - carousel.scrollLeft > 5
+            ? "flex"
+            : "none";
+      }
+
+      updateScrollButtons();
+      carousel.addEventListener("scroll", updateScrollButtons);
+
       // Center highlight effect
       function highlightCenter() {
         const items = carousel.querySelectorAll(".game-item");
         const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
         items.forEach(item => item.classList.remove("centered"));
+
         let closest = null;
         let closestDistance = Infinity;
         items.forEach(item => {
