@@ -1,9 +1,5 @@
 {
   "movies": [
-    {
-      "title": "Superman via Drive",
-      "cover": "covers/superman.jpg",
-      "file": "https://drive.google.com/uc?export=download&id=17UAQfjCG65Nd1js3OMLl8JUBDzmKmWqA"
-    }
+    { "title": "Superman", "cover": "covers/Superman/superman.jpg", "file": "17UAQfjCG65Nd1js3OMLl8JUBDzmKmWqA" }
   ]
 }
