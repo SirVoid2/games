@@ -2,7 +2,7 @@
 fetch("apps.json")
   .then(res => res.json())
   .then(data => {
-    const container = document.getElementById("app-sections");
+    const container = document.getElementById("game-sections");
 
     for (const sectionName in data) {
       const sectionDiv = document.createElement("div");
@@ -20,15 +20,17 @@ fetch("apps.json")
       const carousel = document.createElement("div");
       carousel.className = "carousel";
 
-      // Render apps
+      // Render items
       data[sectionName].forEach(app => {
         const item = document.createElement("div");
-        item.className = "game-item"; // keep same styling for squares
+        item.className = "game-item";
 
         if (app.visible) {
+          // Visible app
           item.innerHTML = `<img src="${app.cover}" alt="${app.title}"><p>${app.title}</p>`;
           item.onclick = () => window.location.href = app.url;
         } else {
+          // Placeholder for invisible/empty items
           item.innerHTML = `<div class="placeholder"></div>`;
         }
 
@@ -40,7 +42,7 @@ fetch("apps.json")
       // LEFT SCROLL BUTTON
       const leftBtn = document.createElement("button");
       leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;";
+      leftBtn.innerHTML = "&#10094;"; // left arrow
       leftBtn.addEventListener("click", () => {
         carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
       });
@@ -49,7 +51,7 @@ fetch("apps.json")
       // RIGHT SCROLL BUTTON
       const rightBtn = document.createElement("button");
       rightBtn.className = "scroll-btn right";
-      rightBtn.innerHTML = "&#10095;";
+      rightBtn.innerHTML = "&#10095;"; // right arrow
       rightBtn.addEventListener("click", () => {
         carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
       });
@@ -63,7 +65,7 @@ fetch("apps.json")
   })
   .catch(err => console.error("Failed to load apps.json:", err));
 
-// Search filter for all sections
+// Search filter
 function initSearch() {
   const input = document.querySelector(".search input");
   input.addEventListener("input", () => {
