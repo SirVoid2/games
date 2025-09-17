@@ -1,44 +1,18 @@
-// Helper: Convert Google Drive file ID to direct link
-function getDriveDirectLink(fileId) {
-  return `https://drive.google.com/uc?export=download&id=${fileId}`;
-}
-
-// Load movies from media.json
-fetch("media.json")
+// Load games from games.json
+fetch("games.json")
   .then(res => res.json())
   .then(data => {
-    const movies = data.movies || [];
-    const carousel = document.querySelector("#movies .carousel");
-    movies.forEach(movie => {
+    const games = data.games || [];
+    const carousel = document.getElementById("games-carousel");
+    games.forEach(game => {
       const item = document.createElement("div");
-      item.className = "movie-item";
-      item.innerHTML = `<img src="${movie.cover}" alt="${movie.title}"><p>${movie.title}</p>`;
-      item.onclick = () => playVideo(getDriveDirectLink(movie.file));
+      item.className = "game-item";
+      item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
+      item.onclick = () => window.location.href = game.url;
       carousel.appendChild(item);
     });
     initCarousel();
   });
-
-// Video player functions
-function playVideo(src) {
-  const player = document.getElementById("player");
-  const video = document.getElementById("video");
-  video.src = src;
-  video.load();
-  video.onerror = () => {
-    alert("Failed to load video. Google Drive may block streaming for large files.");
-  };
-  player.style.display = "flex";
-  video.play().catch(err => console.warn(err));
-}
-
-function closePlayer() {
-  const player = document.getElementById("player");
-  const video = document.getElementById("video");
-  video.pause();
-  video.src = "";
-  player.style.display = "none";
-}
 
 // Initialize carousel scroll buttons
 function initCarousel() {
@@ -51,7 +25,7 @@ function initCarousel() {
     rightBtn.addEventListener("click", () => carousel.scrollBy({ left: carousel.clientWidth * 0.8, behavior: "smooth" }));
 
     // Center first item on load
-    const first = carousel.querySelector(".movie-item");
+    const first = carousel.querySelector(".game-item");
     if (first) {
       carousel.scrollLeft = first.offsetLeft - (carousel.clientWidth - first.offsetWidth)/2;
       updateCenter(carousel);
@@ -64,10 +38,20 @@ function initCarousel() {
 
 // Highlight center item
 function updateCenter(carousel) {
-  const items = carousel.querySelectorAll(".movie-item");
+  const items = carousel.querySelectorAll(".game-item");
   const center = carousel.scrollLeft + carousel.clientWidth / 2;
   items.forEach(item => {
     const itemCenter = item.offsetLeft + item.offsetWidth / 2;
     item.classList.toggle("centered", Math.abs(center - itemCenter) < item.offsetWidth / 2);
   });
 }
+
+// Search filter
+const input = document.querySelector(".search input");
+input.addEventListener("input", () => {
+  const term = input.value.toLowerCase();
+  document.querySelectorAll(".game-item").forEach(item => {
+    const title = item.querySelector("p").textContent.toLowerCase();
+    item.style.display = title.includes(term) ? "block" : "none";
+  });
+});

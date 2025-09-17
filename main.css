@@ -100,7 +100,7 @@ nav h1 {
 }
 
 /* THUMBNAILS - SMALL VERTICAL 9:16 */
-.movie-item {
+.game-item {
   flex: 0 0 auto;
   width: 120px;
   height: 213px;
@@ -108,7 +108,7 @@ nav h1 {
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.movie-item img {
+.game-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -117,21 +117,21 @@ nav h1 {
   transition: transform 0.3s, filter 0.3s;
 }
 
-.movie-item:hover {
+.game-item:hover {
   transform: scale(1.08);
 }
 
-.movie-item:hover img {
+.game-item:hover img {
   filter: brightness(0.85);
 }
 
 /* CENTER HIGHLIGHT EFFECT */
-.carousel .movie-item.centered img {
+.carousel .game-item.centered img {
   transform: scale(1.15);
   filter: brightness(1.1);
 }
 
-/* SCROLL ARROWS - SMALLER */
+/* SCROLL ARROWS */
 .scroll-btn {
   position: absolute;
   top: 50%;
@@ -163,42 +163,4 @@ nav h1 {
 
 .scroll-btn:hover {
   background: rgba(20, 20, 20, 0.9);
-}
-
-/* VIDEO PLAYER */
-#player {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.95);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-#player video {
-  max-width: 90%;
-  max-height: 70%;
-  border-radius: 8px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.9);
-}
-
-#player button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  background: #e50914;
-  color: #fff;
-  font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-#player button:hover {
-  background: #f40612;
 }
