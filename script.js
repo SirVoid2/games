@@ -1,60 +1,86 @@
-// ======= SCROLL BUTTONS FOR CAROUSELS =======
-document.querySelectorAll('.carousel-container').forEach(container => {
-  const carousel = container.querySelector('.carousel');
-  const leftBtn = container.querySelector('.scroll-btn.left');
-  const rightBtn = container.querySelector('.scroll-btn.right');
+// Load games from JSON
+fetch("games.json")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("game-sections");
 
-  // Scroll amount per click
-  const scrollAmount = 200;
+    for (const sectionName in data) {
+      const sectionDiv = document.createElement("div");
+      sectionDiv.className = "row";
 
-  // Left button click
-  leftBtn.addEventListener('click', () => {
-    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  });
+      // Section title
+      const h2 = document.createElement("h2");
+      h2.textContent = `${sectionName}`;
+      sectionDiv.appendChild(h2);
 
-  // Right button click
-  rightBtn.addEventListener('click', () => {
-    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
+      // Carousel container
+      const carouselContainer = document.createElement("div");
+      carouselContainer.className = "carousel-container";
 
-  // Function to check scroll and hide/show buttons
-  function updateButtons() {
-    // Hide left button if at start
-    if (carousel.scrollLeft <= 0) {
-      leftBtn.style.display = 'none';
-    } else {
-      leftBtn.style.display = 'flex';
-    }
+      const leftBtn = document.createElement("button");
+      leftBtn.className = "scroll-btn left";
+      leftBtn.innerHTML = "&#10094;";
+      carouselContainer.appendChild(leftBtn);
 
-    // Hide right button if at end
-    if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1) {
-      rightBtn.style.display = 'none';
-    } else {
-      rightBtn.style.display = 'flex';
-    }
-  }
+      const carousel = document.createElement("div");
+      carousel.className = "carousel";
 
-  // Update buttons on scroll
-  carousel.addEventListener('scroll', updateButtons);
+      data[sectionName].forEach(game => {
+        const item = document.createElement("div");
+        item.className = "game-item";
+        item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
+        item.onclick = () => window.location.href = game.url;
+        carousel.appendChild(item);
+      });
 
-  // Initial check
-  updateButtons();
-});
+      carouselContainer.appendChild(carousel);
 
-// ======= SEARCH FILTER FOR GAMES =======
-const input = document.querySelector('.search input');
-const gameItems = document.querySelectorAll('.game-item');
+      const rightBtn = document.createElement("button");
+      rightBtn.className = "scroll-btn right";
+      rightBtn.innerHTML = "&#10095;";
+      carouselContainer.appendChild(rightBtn);
 
-if (input) {
-  input.addEventListener('input', () => {
-    const searchTerm = input.value.toLowerCase();
-    gameItems.forEach(game => {
-      const title = game.querySelector('p').textContent.toLowerCase();
-      if (title.includes(searchTerm)) {
-        game.style.display = 'block';
-      } else {
-        game.style.display = 'none';
+      sectionDiv.appendChild(carouselContainer);
+      container.appendChild(sectionDiv);
+
+      // Scroll functionality
+      leftBtn.addEventListener("click", () => carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" }));
+      rightBtn.addEventListener("click", () => carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" }));
+
+      // Center highlight effect
+      function highlightCenter() {
+        const items = carousel.querySelectorAll(".game-item");
+        const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
+        items.forEach(item => item.classList.remove("centered"));
+        let closest = null;
+        let closestDistance = Infinity;
+        items.forEach(item => {
+          const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+          const distance = Math.abs(carouselCenter - itemCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closest = item;
+          }
+        });
+        if (closest) closest.classList.add("centered");
       }
+
+      carousel.addEventListener("scroll", highlightCenter);
+      highlightCenter(); // initial highlight
+    }
+
+    initSearch();
+  })
+  .catch(err => console.error("Failed to load games.json:", err));
+
+// Search filter for all sections
+function initSearch() {
+  const input = document.querySelector(".search input");
+  input.addEventListener("input", () => {
+    const term = input.value.toLowerCase();
+    document.querySelectorAll(".game-item").forEach(item => {
+      const title = item.querySelector("p").textContent.toLowerCase();
+      item.style.display = title.includes(term) ? "block" : "none";
     });
   });
 }
