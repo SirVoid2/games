@@ -5,18 +5,5 @@
       "cover": "covers/superman.jpg",
       "file": "https://drive.google.com/uc?export=download&id=17UAQfjCG65Nd1js3OMLl8JUBDzmKmWqA"
     }
-  ],
-
-  "shows": [
-    { "title": "Breaking Bad", "cover": "covers/breakingbad.jpg", "episodes": [
-        { "title": "S1E1", "file": "shows/breakingbad/s1e1.mkv" },
-        { "title": "S1E2", "file": "shows/breakingbad/s1e2.mkv" }
-      ]
-    },
-    { "title": "Stranger Things", "cover": "covers/strangerthings.jpg", "episodes": [
-        { "title": "S1E1", "file": "shows/strangerthings/s1e1.mp4" },
-        { "title": "S1E2", "file": "shows/strangerthings/s1e2.mp4" }
-      ]
-    }
   ]
 }

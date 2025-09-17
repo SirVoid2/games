@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>67HEHE</title>
   <link rel="icon" type="image/x-icon" href="images/logo.png">
@@ -16,18 +15,19 @@
     <h1>Emilio 67</h1>
     <ul class="nav-links">
       <li><a href="#movies">Movies</a></li>
-      <li><a href="#shows">Shows</a></li>
       <li><a href="#games">Games</a></li>
     </ul>
   </nav>
+  <hr>
 
-  <!-- SEARCH + GAME GRID -->
+  <!-- SEARCH -->
   <div class="content">
     <div class="search">
       <input type="text" placeholder="Search...">
       <button><i class="fas fa-search"></i></button>
     </div>
 
+    <!-- Games -->
     <div id="games">
       <a href="games/Retro Bowl/"><img src="games/Retro Bowl/retro-bowl.jpg" alt="retrobowl"></a>
       <a href="games/Retro Bowl College/"><img src="games/Retro Bowl College/retro-bowl-college.png" alt="retrobowl college"></a>
@@ -41,22 +41,18 @@
     </div>
   </div>
 
-  <!-- MEDIA HUB -->
+  <!-- Movies -->
   <div class="row" id="movies">
     <h2>🎬 Movies</h2>
-    <div class="carousel"></div>
-  </div>
-  <div class="row" id="shows">
-    <h2>📺 Shows</h2>
-    <div class="carousel"></div>
+    <div class="carousel" id="movie-carousel"></div>
   </div>
 
-  <!-- VIDEO PLAYER -->
-  <div id="player">
-    <video id="video" controls></video>
+  <!-- Video Player -->
+  <div id="player" style="display:none;">
+    <video id="video" controls autoplay></video>
     <button onclick="closePlayer()">Close</button>
   </div>
 
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
