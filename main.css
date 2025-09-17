@@ -14,13 +14,13 @@ nav {
   top: 0;
   left: 0;
   backdrop-filter: blur(10px) saturate(200%) brightness(70%);
-  background: rgba(20, 20, 20, 0.7);
+  background: rgba(20, 20, 20, 0.85);
   display: flex;
   align-items: center;
   height: 70px;
   width: 100%;
   padding: 0 20px;
-  z-index: 10;
+  z-index: 100;
 }
 
 nav img {
@@ -88,22 +88,22 @@ nav h1 {
 
 .carousel {
   display: flex;
-  gap: 12px;
+  gap: 20px; /* slightly more space between items */
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  padding: 10px 0;
+  padding: 10px 40px; /* add padding so scroll buttons don’t overlap images */
 }
 
 .carousel::-webkit-scrollbar {
   display: none;
 }
 
-/* THUMBNAILS - SMALL VERTICAL 9:16 */
+/* THUMBNAILS - SQUARE */
 .game-item {
   flex: 0 0 auto;
-  width: 120px;
-  height: 213px;
+  width: 150px;
+  height: 150px;
   text-align: center;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -127,11 +127,11 @@ nav h1 {
 
 /* CENTER HIGHLIGHT EFFECT */
 .carousel .game-item.centered img {
-  transform: scale(1.15);
-  filter: brightness(1.1);
+  transform: scale(1.12);
+  filter: brightness(1.05);
 }
 
-/* SCROLL ARROWS */
+/* SCROLL ARROWS - SMALLER & OUTSIDE */
 .scroll-btn {
   position: absolute;
   top: 50%;
@@ -139,28 +139,28 @@ nav h1 {
   background: rgba(20, 20, 20, 0.7);
   border: none;
   color: #fff;
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
   cursor: pointer;
-  z-index: 5;
-  width: 35px; 
-  height: 60px; 
+  z-index: 10;
+  width: 30px; 
+  height: 50px; 
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .scroll-btn.left {
-  left: 0;
+  left: 5px;
   border-radius: 0 6px 6px 0;
 }
 
 .scroll-btn.right {
-  right: 0;
+  right: 5px;
   border-radius: 6px 0 0 6px;
 }
 
 .scroll-btn:hover {
-  background: rgba(20, 20, 20, 0.9);
+  background: rgba(20, 20, 20, 0.95);
+  transform: scale(1.1);
 }
