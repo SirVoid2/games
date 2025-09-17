@@ -25,7 +25,7 @@ function loadGames(games) {
     const item = document.createElement("a");
     item.href = "#";
     item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-    item.onclick = () => alert("Game launch not implemented"); // optional
+    item.onclick = () => alert("Game launch not implemented"); 
     container.appendChild(item);
   });
 }
@@ -47,7 +47,7 @@ function closePlayer() {
   player.style.display = "none";
 }
 
-// Infinite scroll with arrows + center highlight
+// Infinite scroll + center highlight
 function initCarousels() {
   document.querySelectorAll(".carousel-container, .games-container").forEach(container => {
     const carousel = container.querySelector(".carousel") || container.querySelector("#games");

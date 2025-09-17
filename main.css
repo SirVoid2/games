@@ -32,25 +32,6 @@ nav img {
 nav h1 {
   font-size: 24px;
   font-weight: 800;
-  margin-right: 30px;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links li a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  transition: color 0.2s;
-}
-
-.nav-links li a:hover {
-  color: #e50914;
 }
 
 /* CONTENT */
@@ -157,7 +138,7 @@ nav h1 {
   filter: brightness(1.1);
 }
 
-/* SCROLL ARROWS */
+/* SCROLL ARROWS - SMALLER */
 .scroll-btn {
   position: absolute;
   top: 50%;
@@ -165,12 +146,12 @@ nav h1 {
   background: rgba(20, 20, 20, 0.7);
   border: none;
   color: #fff;
-  font-size: 32px;
+  font-size: 24px; /* smaller than before */
   font-weight: bold;
   cursor: pointer;
   z-index: 5;
-  width: 50px;
-  height: 80px;
+  width: 35px; /* smaller width */
+  height: 60px; /* smaller height */
   display: flex;
   align-items: center;
   justify-content: center;
