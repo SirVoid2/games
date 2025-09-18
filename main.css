@@ -22,10 +22,10 @@ h2 {
 
 .carousel {
   display: flex;
-  gap: 40px;
+  gap: 35px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 15px 0;
+  padding: 20px 0;
 }
 
 .carousel::-webkit-scrollbar {
