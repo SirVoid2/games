@@ -1,7 +1,6 @@
 {
   "All": [
-    { "title": "KodaStreams", "cover": "KodaStreams/kodastreams.jpg", "url": "KodaStreams", "visible": true },
-    { "title": "Emu", "cover": "Emu/emulator-js.png", "url": "Emu", "visible": true },
+    { "title": "KodaStreams", "cover": "images/logo.png", "url": "KodaStreams", "visible": true },
     { "title": "" }
   ]
 }
