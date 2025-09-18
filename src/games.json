@@ -11,12 +11,8 @@
     { "title": "Fruit Ninja", "cover": "Fruit Ninja/fruit-ninja.png", "url": "Fruit Ninja", "visible": true },
     { "title": "Drift Boss", "cover": "Drift Boss/drift-boss.png", "url": "Drift Boss", "visible": true },
     { "title": "" }
-  ],
-  
-  "A͎p͎p͎s͎": [
-    { "title": "Jellyfin", "cover": "images/logo.png", "url": "Jellyfin", "visible": true },
-    { "title": "" }
   ]
+  
  
 }
  
