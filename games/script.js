@@ -1,50 +1,56 @@
-// ---- SCRIPT.JS ----
+// ---- COMBINED SCRIPT.JS ----
 
-// Helper: create iframe overlay
-function createIframeOverlay(url) {
-  // Remove existing overlay if any
-  const existing = document.querySelector(".iframe-overlay");
-  if (existing) existing.remove();
-
+// Helper: create iframe overlay for apps
+function openAppIframe(app) {
   const overlay = document.createElement("div");
-  overlay.className = "iframe-overlay";
-
-  const iframe = document.createElement("iframe");
-  iframe.src = url;
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100vw";
+  overlay.style.height = "100vh";
+  overlay.style.backgroundColor = "rgba(0,0,0,0.9)";
+  overlay.style.zIndex = 9999;
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
 
   const closeBtn = document.createElement("button");
-  closeBtn.className = "close-btn";
   closeBtn.textContent = "×";
-  closeBtn.onclick = () => overlay.remove();
-
+  closeBtn.style.position = "absolute";
+  closeBtn.style.top = "20px";
+  closeBtn.style.right = "30px";
+  closeBtn.style.fontSize = "40px";
+  closeBtn.style.color = "#fff";
+  closeBtn.style.background = "none";
+  closeBtn.style.border = "none";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.addEventListener("click", () => document.body.removeChild(overlay));
   overlay.appendChild(closeBtn);
+
+  const iframe = document.createElement("iframe");
+  iframe.src = app.url;
+  iframe.style.width = "90%";
+  iframe.style.height = "90%";
+  iframe.style.border = "none";
+  iframe.style.borderRadius = "12px";
   overlay.appendChild(iframe);
+
   document.body.appendChild(overlay);
 }
 
-// Load JSON (apps or games)
-function loadJSON(jsonPath) {
-  fetch(jsonPath)
-    .then(res => res.json())
-    .then(data => renderSections(data))
-    .catch(err => console.error(`Failed to load ${jsonPath}:`, err));
-}
-
-// Render sections
-function renderSections(data) {
+// Generic function to render sections
+function renderSections(data, type = "game") {
   const container = document.getElementById("game-sections");
-  container.innerHTML = ""; // Clear existing
 
   for (const sectionName in data) {
     const sectionDiv = document.createElement("div");
     sectionDiv.className = "row";
 
-    // Section title
     const h2 = document.createElement("h2");
     h2.textContent = sectionName;
     sectionDiv.appendChild(h2);
 
-    // Carousel container
     const carouselContainer = document.createElement("div");
     carouselContainer.className = "carousel-container";
 
@@ -57,7 +63,11 @@ function renderSections(data) {
 
       if (item.visible) {
         div.innerHTML = `<img src="${item.cover}" alt="${item.title}"><p>${item.title}</p>`;
-        div.onclick = () => createIframeOverlay(item.url);
+        if (type === "app") {
+          div.addEventListener("click", () => openAppIframe(item));
+        } else {
+          div.addEventListener("click", () => window.location.href = item.url);
+        }
       } else {
         div.innerHTML = `<div class="placeholder"></div>`;
       }
@@ -71,13 +81,17 @@ function renderSections(data) {
     const leftBtn = document.createElement("button");
     leftBtn.className = "scroll-btn left";
     leftBtn.innerHTML = "&#10094;";
-    leftBtn.onclick = () => carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
+    leftBtn.addEventListener("click", () => {
+      carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
+    });
     carouselContainer.appendChild(leftBtn);
 
     const rightBtn = document.createElement("button");
     rightBtn.className = "scroll-btn right";
     rightBtn.innerHTML = "&#10095;";
-    rightBtn.onclick = () => carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
+    rightBtn.addEventListener("click", () => {
+      carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
+    });
     carouselContainer.appendChild(rightBtn);
 
     sectionDiv.appendChild(carouselContainer);
@@ -100,8 +114,14 @@ function initSearch() {
   });
 }
 
-// ---- INIT ----
-// Choose which JSON to load: apps or games
-// Example: "apps/apps.json" or "games/games.json"
-const currentPage = window.location.pathname.includes("/apps/") ? "apps/apps.json" : "games/games.json";
-loadJSON(currentPage);
+// Load apps
+fetch("apps/apps.json")
+  .then(res => res.json())
+  .then(data => renderSections(data, "app"))
+  .catch(err => console.error("Failed to load apps.json:", err));
+
+// Load games
+fetch("games/games.json")
+  .then(res => res.json())
+  .then(data => renderSections(data, "game"))
+  .catch(err => console.error("Failed to load games.json:", err));

@@ -1,91 +1,67 @@
-// ---- SCRIPT.JS ----
+// Load apps from apps.json
+fetch("apps.json")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("game-sections");
 
-// Helper: create iframe overlay
-function createIframeOverlay(url) {
-  // Remove existing overlay if any
-  const existing = document.querySelector(".iframe-overlay");
-  if (existing) existing.remove();
+    for (const sectionName in data) {
+      const sectionDiv = document.createElement("div");
+      sectionDiv.className = "row";
 
-  const overlay = document.createElement("div");
-  overlay.className = "iframe-overlay";
+      // Section title
+      const h2 = document.createElement("h2");
+      h2.textContent = sectionName;
+      sectionDiv.appendChild(h2);
 
-  const iframe = document.createElement("iframe");
-  iframe.src = url;
+      // Carousel container
+      const carouselContainer = document.createElement("div");
+      carouselContainer.className = "carousel-container";
 
-  const closeBtn = document.createElement("button");
-  closeBtn.className = "close-btn";
-  closeBtn.textContent = "×";
-  closeBtn.onclick = () => overlay.remove();
+      const carousel = document.createElement("div");
+      carousel.className = "carousel";
 
-  overlay.appendChild(closeBtn);
-  overlay.appendChild(iframe);
-  document.body.appendChild(overlay);
-}
+      // Render apps
+      data[sectionName].forEach(app => {
+        const item = document.createElement("div");
+        item.className = "game-item";
 
-// Load JSON (apps or games)
-function loadJSON(jsonPath) {
-  fetch(jsonPath)
-    .then(res => res.json())
-    .then(data => renderSections(data))
-    .catch(err => console.error(`Failed to load ${jsonPath}:`, err));
-}
+        if (app.visible) {
+          item.innerHTML = `<img src="${app.cover}" alt="${app.title}"><p>${app.title}</p>`;
+          item.addEventListener("click", () => openAppIframe(app));
+        } else {
+          item.innerHTML = `<div class="placeholder"></div>`;
+        }
 
-// Render sections
-function renderSections(data) {
-  const container = document.getElementById("game-sections");
-  container.innerHTML = ""; // Clear existing
+        carousel.appendChild(item);
+      });
 
-  for (const sectionName in data) {
-    const sectionDiv = document.createElement("div");
-    sectionDiv.className = "row";
+      carouselContainer.appendChild(carousel);
 
-    // Section title
-    const h2 = document.createElement("h2");
-    h2.textContent = sectionName;
-    sectionDiv.appendChild(h2);
+      // LEFT SCROLL BUTTON
+      const leftBtn = document.createElement("button");
+      leftBtn.className = "scroll-btn left";
+      leftBtn.innerHTML = "&#10094;";
+      leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
+      });
+      carouselContainer.appendChild(leftBtn);
 
-    // Carousel container
-    const carouselContainer = document.createElement("div");
-    carouselContainer.className = "carousel-container";
+      // RIGHT SCROLL BUTTON
+      const rightBtn = document.createElement("button");
+      rightBtn.className = "scroll-btn right";
+      rightBtn.innerHTML = "&#10095;";
+      rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
+      });
+      carouselContainer.appendChild(rightBtn);
 
-    const carousel = document.createElement("div");
-    carousel.className = "carousel";
+      sectionDiv.appendChild(carouselContainer);
+      container.appendChild(sectionDiv);
+    }
 
-    data[sectionName].forEach(item => {
-      const div = document.createElement("div");
-      div.className = "game-item";
-
-      if (item.visible) {
-        div.innerHTML = `<img src="${item.cover}" alt="${item.title}"><p>${item.title}</p>`;
-        div.onclick = () => createIframeOverlay(item.url);
-      } else {
-        div.innerHTML = `<div class="placeholder"></div>`;
-      }
-
-      carousel.appendChild(div);
-    });
-
-    carouselContainer.appendChild(carousel);
-
-    // Scroll buttons
-    const leftBtn = document.createElement("button");
-    leftBtn.className = "scroll-btn left";
-    leftBtn.innerHTML = "&#10094;";
-    leftBtn.onclick = () => carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
-    carouselContainer.appendChild(leftBtn);
-
-    const rightBtn = document.createElement("button");
-    rightBtn.className = "scroll-btn right";
-    rightBtn.innerHTML = "&#10095;";
-    rightBtn.onclick = () => carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
-    carouselContainer.appendChild(rightBtn);
-
-    sectionDiv.appendChild(carouselContainer);
-    container.appendChild(sectionDiv);
-  }
-
-  initSearch();
-}
+    initSearch();
+  })
+  .catch(err => console.error("Failed to load apps.json:", err));
 
 // Search filter
 function initSearch() {
@@ -100,8 +76,44 @@ function initSearch() {
   });
 }
 
-// ---- INIT ----
-// Choose which JSON to load: apps or games
-// Example: "apps/apps.json" or "games/games.json"
-const currentPage = window.location.pathname.includes("/apps/") ? "apps/apps.json" : "games/games.json";
-loadJSON(currentPage);
+// Open app in iframe overlay
+function openAppIframe(app) {
+  // Create overlay
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100vw";
+  overlay.style.height = "100vh";
+  overlay.style.backgroundColor = "rgba(0,0,0,0.9)";
+  overlay.style.zIndex = 9999;
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+
+  // Close button
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "×";
+  closeBtn.style.position = "absolute";
+  closeBtn.style.top = "20px";
+  closeBtn.style.right = "30px";
+  closeBtn.style.fontSize = "40px";
+  closeBtn.style.color = "#fff";
+  closeBtn.style.background = "none";
+  closeBtn.style.border = "none";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.addEventListener("click", () => document.body.removeChild(overlay));
+  overlay.appendChild(closeBtn);
+
+  // iframe
+  const iframe = document.createElement("iframe");
+  iframe.src = app.url;
+  iframe.style.width = "90%";
+  iframe.style.height = "90%";
+  iframe.style.border = "none";
+  iframe.style.borderRadius = "12px";
+  overlay.appendChild(iframe);
+
+  document.body.appendChild(overlay);
+}
