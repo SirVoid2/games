@@ -27,12 +27,10 @@ fetch("games.json")
 
         if (game.visible) {
           item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-          item.onclick = () => window.location.href = game.url;
+          item.addEventListener("click", () => openGameIframe(game));
         } else {
           item.innerHTML = `<div class="placeholder"></div>`;
         }
-
-        // No hover highlight logic here
 
         carousel.appendChild(item);
       });
@@ -42,7 +40,7 @@ fetch("games.json")
       // LEFT SCROLL BUTTON
       const leftBtn = document.createElement("button");
       leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;"; // left arrow
+      leftBtn.innerHTML = "&#10094;";
       leftBtn.addEventListener("click", () => {
         carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
       });
@@ -51,7 +49,7 @@ fetch("games.json")
       // RIGHT SCROLL BUTTON
       const rightBtn = document.createElement("button");
       rightBtn.className = "scroll-btn right";
-      rightBtn.innerHTML = "&#10095;"; // right arrow
+      rightBtn.innerHTML = "&#10095;";
       rightBtn.addEventListener("click", () => {
         carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
       });
@@ -59,30 +57,6 @@ fetch("games.json")
 
       sectionDiv.appendChild(carouselContainer);
       container.appendChild(sectionDiv);
-
-      // Center highlight effect (removed)
-      /*
-      function highlightCenter() {
-        const items = carousel.querySelectorAll(".game-item");
-        const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
-        items.forEach(item => item.classList.remove("centered"));
-
-        let closest = null;
-        let closestDistance = Infinity;
-        items.forEach(item => {
-          const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-          const distance = Math.abs(carouselCenter - itemCenter);
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closest = item;
-          }
-        });
-        if (closest) closest.classList.add("centered");
-      }
-
-      carousel.addEventListener("scroll", highlightCenter);
-      highlightCenter(); // initial highlight
-      */
     }
 
     initSearch();
@@ -100,4 +74,22 @@ function initSearch() {
       item.style.display = title === "" ? "flex" : title.includes(term) ? "flex" : "none";
     });
   });
+}
+
+// Open game in iframe overlay (like apps)
+function openGameIframe(game) {
+  const overlay = document.createElement("div");
+  overlay.className = "iframe-overlay";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "close-btn";
+  closeBtn.textContent = "×";
+  closeBtn.addEventListener("click", () => document.body.removeChild(overlay));
+  overlay.appendChild(closeBtn);
+
+  const iframe = document.createElement("iframe");
+  iframe.src = game.url;
+  overlay.appendChild(iframe);
+
+  document.body.appendChild(overlay);
 }
