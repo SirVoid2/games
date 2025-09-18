@@ -1,5 +1,5 @@
 {
-  "All": [
+  "Games": [
     { "title": "Retro Bowl", "cover": "Retro Bowl/retro-bowl.jpg", "url": "Retro Bowl", "visible": true },
     { "title": "Retro Bowl College", "cover": "Retro Bowl College/retro-bowl-college.png", "url": "Retro Bowl College", "visible": true },
     { "title": "Ant Art Tycoon", "cover": "Ant Art Tycoon/ant-art-tycoon.png", "url": "Ant Art Tycoon/index.html", "visible": true },
@@ -11,6 +11,12 @@
     { "title": "Fruit Ninja", "cover": "Fruit Ninja/fruit-ninja.png", "url": "Fruit Ninja", "visible": true },
     { "title": "Drift Boss", "cover": "Drift Boss/drift-boss.png", "url": "Drift Boss", "visible": true },
     { "title": "" }
+  ],
+  
+  "Apps": [
+    { "title": "KodaStreams", "cover": "images/logo.png", "url": "KodaStreams", "visible": true },
+    { "title": "" }
   ]
+ 
 }
  
