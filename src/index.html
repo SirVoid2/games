@@ -3,94 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KodaGames</title>
-  <link rel="stylesheet" href="../main.css">
+  <title>Games & Apps</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="search">
-    <input type="text" placeholder="Search games...">
+    <input type="text" placeholder="Search disabled (JS removed)" disabled>
   </div>
-  <div id="game-sections"></div>
 
-  <script>
-  // Load games.json and render sections
-  fetch("games.json")
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("game-sections");
+  <!-- Games Section -->
+  <div class="row">
+    <h2>Games</h2>
+    <div class="carousel-container">
+      <div class="carousel">
+        <a href="Retro Bowl" class="game-item">
+          <img src="Retro Bowl/retro-bowl.jpg" alt="Retro Bowl">
+          <p>Retro Bowl</p>
+        </a>
+        <a href="Retro Bowl College" class="game-item">
+          <img src="Retro Bowl College/retro-bowl-college.png" alt="Retro Bowl College">
+          <p>Retro Bowl College</p>
+        </a>
+        <a href="Ant Art Tycoon/index.html" class="game-item">
+          <img src="Ant Art Tycoon/ant-art-tycoon.png" alt="Ant Art Tycoon">
+          <p>Ant Art Tycoon</p>
+        </a>
+        <a href="Drive Mad" class="game-item">
+          <img src="Drive Mad/drive-mad.jpg" alt="Drive Mad">
+          <p>Drive Mad</p>
+        </a>
+        <a href="1v1LoL" class="game-item">
+          <img src="1v1LoL/1v1lol.jpeg" alt="1v1LoL">
+          <p>1v1LoL</p>
+        </a>
+        <a href="Minecraft" class="game-item">
+          <img src="Minecraft/mc.png" alt="Minecraft">
+          <p>Minecraft</p>
+        </a>
+        <a href="Crossy Road" class="game-item">
+          <img src="Crossy Road/crossy-road.webp" alt="Crossy Road">
+          <p>Crossy Road</p>
+        </a>
+        <a href="Bloxorz" class="game-item">
+          <img src="Bloxorz/bloxorz.jpg" alt="Bloxorz">
+          <p>Bloxorz</p>
+        </a>
+        <a href="Fruit Ninja" class="game-item">
+          <img src="Fruit Ninja/fruit-ninja.png" alt="Fruit Ninja">
+          <p>Fruit Ninja</p>
+        </a>
+        <a href="Drift Boss" class="game-item">
+          <img src="Drift Boss/drift-boss.png" alt="Drift Boss">
+          <p>Drift Boss</p>
+        </a>
+      </div>
+      <button class="scroll-btn left" disabled>&#10094;</button>
+      <button class="scroll-btn right" disabled>&#10095;</button>
+    </div>
+  </div>
 
-      Object.entries(data).forEach(([sectionName, games]) => {
-        const section = document.createElement("div");
-        section.className = "row";
-
-        section.innerHTML = `
-          <h2>${sectionName}</h2>
-          <div class="carousel-container">
-            <div class="carousel"></div>
-            <button class="scroll-btn left">&#10094;</button>
-            <button class="scroll-btn right">&#10095;</button>
-          </div>
-        `;
-
-        const carousel = section.querySelector(".carousel");
-
-        games.forEach(game => {
-          const item = document.createElement("div");
-          item.className = "game-item";
-
-          if (game.visible) {
-            item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-            item.addEventListener("click", () => openGameIframe(game));
-          } else {
-            item.innerHTML = `<div class="placeholder"></div>`;
-          }
-
-          carousel.appendChild(item);
-        });
-
-        // Scroll buttons
-        section.querySelector(".left").addEventListener("click", () =>
-          carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" })
-        );
-        section.querySelector(".right").addEventListener("click", () =>
-          carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" })
-        );
-
-        container.appendChild(section);
-      });
-
-      initSearch();
-    })
-    .catch(err => console.error("Failed to load games.json:", err));
-
-  // Search filter
-  function initSearch() {
-    const input = document.querySelector(".search input");
-    input.addEventListener("input", () => {
-      const term = input.value.toLowerCase();
-      document.querySelectorAll(".game-item").forEach(item => {
-        const title = item.querySelector("p")?.textContent.toLowerCase() || "";
-        item.style.display = title && !title.includes(term) ? "none" : "flex";
-      });
-    });
-  }
-
-  // Open game in iframe overlay
-  function openGameIframe(game) {
-    const overlay = document.createElement("div");
-    overlay.className = "iframe-overlay";
-
-    overlay.innerHTML = `
-      <button class="close-btn">×</button>
-      <iframe src="${game.url}"></iframe>
-    `;
-
-    overlay.querySelector(".close-btn").addEventListener("click", () =>
-      document.body.removeChild(overlay)
-    );
-
-    document.body.appendChild(overlay);
-  }
-  </script>
+  <!-- Apps Section -->
+  <div class="row">
+    <h2>Apps</h2>
+    <div class="carousel-container">
+      <div class="carousel">
+        <a href="Jellyfin" class="game-item">
+          <img src="images/logo.png" alt="Jellyfin">
+          <p>Jellyfin</p>
+        </a>
+      </div>
+      <button class="scroll-btn left" disabled>&#10094;</button>
+      <button class="scroll-btn right" disabled>&#10095;</button>
+    </div>
+  </div>
 </body>
 </html>
