@@ -1,27 +1,27 @@
-// Load games from JSON
+// script.js (games)
+
+// Load games.json and render sections
 fetch("games.json")
   .then(res => res.json())
   .then(data => {
     const container = document.getElementById("game-sections");
 
-    for (const sectionName in data) {
-      const sectionDiv = document.createElement("div");
-      sectionDiv.className = "row";
+    Object.entries(data).forEach(([sectionName, games]) => {
+      const section = document.createElement("div");
+      section.className = "row";
 
-      // Section title
-      const h2 = document.createElement("h2");
-      h2.textContent = sectionName;
-      sectionDiv.appendChild(h2);
+      section.innerHTML = `
+        <h2>${sectionName}</h2>
+        <div class="carousel-container">
+          <div class="carousel"></div>
+          <button class="scroll-btn left">&#10094;</button>
+          <button class="scroll-btn right">&#10095;</button>
+        </div>
+      `;
 
-      // Carousel container
-      const carouselContainer = document.createElement("div");
-      carouselContainer.className = "carousel-container";
+      const carousel = section.querySelector(".carousel");
 
-      const carousel = document.createElement("div");
-      carousel.className = "carousel";
-
-      // Render games
-      data[sectionName].forEach(game => {
+      games.forEach(game => {
         const item = document.createElement("div");
         item.className = "game-item";
 
@@ -35,61 +35,46 @@ fetch("games.json")
         carousel.appendChild(item);
       });
 
-      carouselContainer.appendChild(carousel);
+      // Scroll buttons
+      section.querySelector(".left").addEventListener("click", () =>
+        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" })
+      );
+      section.querySelector(".right").addEventListener("click", () =>
+        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" })
+      );
 
-      // LEFT SCROLL BUTTON
-      const leftBtn = document.createElement("button");
-      leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;";
-      leftBtn.addEventListener("click", () => {
-        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
-      });
-      carouselContainer.appendChild(leftBtn);
-
-      // RIGHT SCROLL BUTTON
-      const rightBtn = document.createElement("button");
-      rightBtn.className = "scroll-btn right";
-      rightBtn.innerHTML = "&#10095;";
-      rightBtn.addEventListener("click", () => {
-        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
-      });
-      carouselContainer.appendChild(rightBtn);
-
-      sectionDiv.appendChild(carouselContainer);
-      container.appendChild(sectionDiv);
-    }
+      container.appendChild(section);
+    });
 
     initSearch();
   })
   .catch(err => console.error("Failed to load games.json:", err));
 
-// Search filter for all sections
+// Search filter
 function initSearch() {
   const input = document.querySelector(".search input");
   input.addEventListener("input", () => {
     const term = input.value.toLowerCase();
     document.querySelectorAll(".game-item").forEach(item => {
-      const titleEl = item.querySelector("p");
-      const title = titleEl ? titleEl.textContent.toLowerCase() : "";
-      item.style.display = title === "" ? "flex" : title.includes(term) ? "flex" : "none";
+      const title = item.querySelector("p")?.textContent.toLowerCase() || "";
+      item.style.display = title && !title.includes(term) ? "none" : "flex";
     });
   });
 }
 
-// Open game in iframe overlay (like apps)
+// Open game in iframe overlay
 function openGameIframe(game) {
   const overlay = document.createElement("div");
   overlay.className = "iframe-overlay";
 
-  const closeBtn = document.createElement("button");
-  closeBtn.className = "close-btn";
-  closeBtn.textContent = "×";
-  closeBtn.addEventListener("click", () => document.body.removeChild(overlay));
-  overlay.appendChild(closeBtn);
+  overlay.innerHTML = `
+    <button class="close-btn">×</button>
+    <iframe src="${game.url}"></iframe>
+  `;
 
-  const iframe = document.createElement("iframe");
-  iframe.src = game.url;
-  overlay.appendChild(iframe);
+  overlay.querySelector(".close-btn").addEventListener("click", () =>
+    document.body.removeChild(overlay)
+  );
 
   document.body.appendChild(overlay);
 }
