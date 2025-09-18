@@ -8,8 +8,6 @@
     { "title": "Minecraft", "cover": "Minecraft/mc.png", "url": "Minecraft", "visible": true },
     { "title": "Crossy Road", "cover": "Crossy Road/crossy-road.webp", "url": "Crossy Road", "visible": true },
     { "title": "Bloxorz", "cover": "Bloxorz/bloxorz.jpg", "url": "Bloxorz", "visible": true },
-    { "title": "Moto X3M", "cover": "Moto X3M/moto-x3m.jpg", "url": "Moto X3M", "visible": true },
-    { "title": "Moto X3M 2", "cover": "Moto X3M 2/moto-x3m2.jpg", "url": "Moto X3M 2", "visible": true },
     { "title": "Fruit Ninja", "cover": "Fruit Ninja/fruit-ninja.png", "url": "Fruit Ninja", "visible": true },
     { "title": "Drift Boss", "cover": "Drift Boss/drift-boss.png", "url": "Drift Boss", "visible": true },
     { "title": "" }
