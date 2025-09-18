@@ -1,3 +1,5 @@
+// apps.js
+
 // Load apps from apps.json
 fetch("apps.json")
   .then(res => res.json())
@@ -76,43 +78,21 @@ function initSearch() {
   });
 }
 
-// Open app in iframe overlay
+// Open app in iframe overlay (same style as games)
 function openAppIframe(app) {
-  // Create overlay
   const overlay = document.createElement("div");
-  overlay.style.position = "fixed";
-  overlay.style.top = 0;
-  overlay.style.left = 0;
-  overlay.style.width = "100vw";
-  overlay.style.height = "100vh";
-  overlay.style.backgroundColor = "rgba(0,0,0,0.9)";
-  overlay.style.zIndex = 9999;
-  overlay.style.display = "flex";
-  overlay.style.flexDirection = "column";
-  overlay.style.alignItems = "center";
-  overlay.style.justifyContent = "center";
+  overlay.className = "iframe-overlay";
 
   // Close button
   const closeBtn = document.createElement("button");
+  closeBtn.className = "close-btn";
   closeBtn.textContent = "×";
-  closeBtn.style.position = "absolute";
-  closeBtn.style.top = "20px";
-  closeBtn.style.right = "30px";
-  closeBtn.style.fontSize = "40px";
-  closeBtn.style.color = "#fff";
-  closeBtn.style.background = "none";
-  closeBtn.style.border = "none";
-  closeBtn.style.cursor = "pointer";
   closeBtn.addEventListener("click", () => document.body.removeChild(overlay));
   overlay.appendChild(closeBtn);
 
   // iframe
   const iframe = document.createElement("iframe");
   iframe.src = app.url;
-  iframe.style.width = "90%";
-  iframe.style.height = "90%";
-  iframe.style.border = "none";
-  iframe.style.borderRadius = "12px";
   overlay.appendChild(iframe);
 
   document.body.appendChild(overlay);
