@@ -1,5 +1,3 @@
-// apps.js
-
 // Load apps from apps.json
 fetch("apps.json")
   .then(res => res.json())
@@ -83,14 +81,12 @@ function openAppIframe(app) {
   const overlay = document.createElement("div");
   overlay.className = "iframe-overlay";
 
-  // Close button
   const closeBtn = document.createElement("button");
   closeBtn.className = "close-btn";
   closeBtn.textContent = "×";
   closeBtn.addEventListener("click", () => document.body.removeChild(overlay));
   overlay.appendChild(closeBtn);
 
-  // iframe
   const iframe = document.createElement("iframe");
   iframe.src = app.url;
   overlay.appendChild(iframe);
