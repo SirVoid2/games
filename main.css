@@ -22,7 +22,7 @@ h2 {
 
 .carousel {
   display: flex;
-  gap: 30px;
+  gap: 40px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 15px 0;
