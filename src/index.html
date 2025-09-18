@@ -3,101 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Games & Apps</title>
-<link rel="stylesheet" href="main.css">
+<title>Image Button Overlay Test</title>
+<style>
+  body {
+    background: #141414;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Image as button */
+  .img-button {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, filter 0.3s;
+  }
+
+  .img-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .img-button:hover {
+    transform: scale(1.05);
+    filter: brightness(0.85);
+  }
+
+  /* Overlay */
+  .iframe-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .iframe-overlay.active {
+    display: flex;
+  }
+
+  .iframe-overlay iframe {
+    width: 80%;
+    height: 80%;
+    border: none;
+    border-radius: 12px;
+  }
+
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .close-btn:hover {
+    color: #ff4444;
+  }
+</style>
 </head>
 <body>
 
-<h2>Games</h2>
-<div class="carousel-container">
-  <div class="carousel">
-    <a href="#retro-bowl" class="game-item">
-      <img src="Retro Bowl/retro-bowl.jpg" alt="Retro Bowl">
-    </a>
-    <a href="#retro-bowl-college" class="game-item">
-      <img src="Retro Bowl College/retro-bowl-college.png" alt="Retro Bowl College">
-    </a>
-    <a href="#ant-art-tycoon" class="game-item">
-      <img src="Ant Art Tycoon/ant-art-tycoon.png" alt="Ant Art Tycoon">
-    </a>
-    <a href="#drive-mad" class="game-item">
-      <img src="Drive Mad/drive-mad.jpg" alt="Drive Mad">
-    </a>
-    <a href="#1v1lol" class="game-item">
-      <img src="1v1LoL/1v1lol.jpeg" alt="1v1LoL">
-    </a>
-    <a href="#minecraft" class="game-item">
-      <img src="Minecraft/mc.png" alt="Minecraft">
-    </a>
-    <a href="#crossy-road" class="game-item">
-      <img src="Crossy Road/crossy-road.webp" alt="Crossy Road">
-    </a>
-    <a href="#bloxorz" class="game-item">
-      <img src="Bloxorz/bloxorz.jpg" alt="Bloxorz">
-    </a>
-    <a href="#fruit-ninja" class="game-item">
-      <img src="Fruit Ninja/fruit-ninja.png" alt="Fruit Ninja">
-    </a>
-    <a href="#drift-boss" class="game-item">
-      <img src="Drift Boss/drift-boss.png" alt="Drift Boss">
-    </a>
-  </div>
+<!-- Image button -->
+<div class="img-button" id="openBtn">
+  <img src="Retro Bowl/retro-bowl.jpg" alt="Retro Bowl">
 </div>
 
-<h2>Apps</h2>
-<div class="carousel-container">
-  <div class="carousel">
-    <a href="#jellyfin" class="game-item">
-      <img src="images/logo.png" alt="Jellyfin">
-    </a>
-  </div>
-</div>
-
-<!-- IFRAME OVERLAYS -->
-<div id="retro-bowl" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
+<!-- Iframe overlay -->
+<div class="iframe-overlay" id="overlay">
+  <button class="close-btn" id="closeBtn">×</button>
   <iframe src="Retro Bowl"></iframe>
 </div>
-<div id="retro-bowl-college" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Retro Bowl College"></iframe>
-</div>
-<div id="ant-art-tycoon" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Ant Art Tycoon/index.html"></iframe>
-</div>
-<div id="drive-mad" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Drive Mad"></iframe>
-</div>
-<div id="1v1lol" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="1v1LoL"></iframe>
-</div>
-<div id="minecraft" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Minecraft"></iframe>
-</div>
-<div id="crossy-road" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Crossy Road"></iframe>
-</div>
-<div id="bloxorz" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Bloxorz"></iframe>
-</div>
-<div id="fruit-ninja" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Fruit Ninja"></iframe>
-</div>
-<div id="drift-boss" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Drift Boss"></iframe>
-</div>
-<div id="jellyfin" class="iframe-overlay">
-  <a href="#" class="close-btn">×</a>
-  <iframe src="Jellyfin"></iframe>
-</div>
+
+<script>
+  const openBtn = document.getElementById('openBtn');
+  const overlay = document.getElementById('overlay');
+  const closeBtn = document.getElementById('closeBtn');
+
+  openBtn.addEventListener('click', () => {
+    overlay.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    overlay.classList.remove('active');
+  });
+</script>
 
 </body>
 </html>
