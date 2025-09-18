@@ -41,9 +41,9 @@ nav h1 {
 nav ul.nav-links {
   display: flex;
   gap: 15px;
-  list-style: none;
-  margin-left: auto;
+  margin-left: 20px; /* optional spacing from logo */
 }
+
 
 nav ul.nav-links li a {
   color: #fff;
