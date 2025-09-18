@@ -14,6 +14,24 @@ h2 {
   font-weight: 700;
 }
 
+/* CAROUSEL CONTAINER */
+.carousel-container {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.carousel {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 10px 0;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
 /* IMAGE BUTTONS */
 .game-item {
   flex: 0 0 auto;
@@ -46,16 +64,51 @@ h2 {
   filter: brightness(0.85);
 }
 
+/* SCROLL BUTTONS */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(20, 20, 20, 0.7);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  width: 35px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, opacity 0.3s;
+  border-radius: 6px;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
+
+.scroll-btn:hover {
+  background: rgba(20, 20, 20, 0.95);
+  transform: translateY(-50%) scale(1.05);
+}
 
 /* RESPONSIVE */
 @media screen and (max-width: 768px) {
-  
   .game-item {
     width: 120px;
     height: 120px;
   }
-
   .game-item img {
     height: 120px;
+  }
+  .scroll-btn {
+    font-size: 18px;
+    width: 30px;
+    height: 50px;
   }
 }
