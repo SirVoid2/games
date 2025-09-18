@@ -1,95 +1,93 @@
-// Load games from JSON
-fetch("games.json")
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById("game-sections");
+// ---- SCRIPT.JS ----
 
-    for (const sectionName in data) {
-      const sectionDiv = document.createElement("div");
-      sectionDiv.className = "row";
+// Helper: create iframe overlay
+function createIframeOverlay(url) {
+  // Remove existing overlay if any
+  const existing = document.querySelector(".iframe-overlay");
+  if (existing) existing.remove();
 
-      // Section title
-      const h2 = document.createElement("h2");
-      h2.textContent = sectionName;
-      sectionDiv.appendChild(h2);
+  const overlay = document.createElement("div");
+  overlay.className = "iframe-overlay";
 
-      // Carousel container
-      const carouselContainer = document.createElement("div");
-      carouselContainer.className = "carousel-container";
+  const iframe = document.createElement("iframe");
+  iframe.src = url;
 
-      const carousel = document.createElement("div");
-      carousel.className = "carousel";
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "close-btn";
+  closeBtn.textContent = "×";
+  closeBtn.onclick = () => overlay.remove();
 
-      // Render games
-      data[sectionName].forEach(game => {
-        const item = document.createElement("div");
-        item.className = "game-item";
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(iframe);
+  document.body.appendChild(overlay);
+}
 
-        if (game.visible) {
-          item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-          item.onclick = () => window.location.href = game.url;
-        } else {
-          item.innerHTML = `<div class="placeholder"></div>`;
-        }
+// Load JSON (apps or games)
+function loadJSON(jsonPath) {
+  fetch(jsonPath)
+    .then(res => res.json())
+    .then(data => renderSections(data))
+    .catch(err => console.error(`Failed to load ${jsonPath}:`, err));
+}
 
-        // No hover highlight logic here
+// Render sections
+function renderSections(data) {
+  const container = document.getElementById("game-sections");
+  container.innerHTML = ""; // Clear existing
 
-        carousel.appendChild(item);
-      });
+  for (const sectionName in data) {
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "row";
 
-      carouselContainer.appendChild(carousel);
+    // Section title
+    const h2 = document.createElement("h2");
+    h2.textContent = sectionName;
+    sectionDiv.appendChild(h2);
 
-      // LEFT SCROLL BUTTON
-      const leftBtn = document.createElement("button");
-      leftBtn.className = "scroll-btn left";
-      leftBtn.innerHTML = "&#10094;"; // left arrow
-      leftBtn.addEventListener("click", () => {
-        carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
-      });
-      carouselContainer.appendChild(leftBtn);
+    // Carousel container
+    const carouselContainer = document.createElement("div");
+    carouselContainer.className = "carousel-container";
 
-      // RIGHT SCROLL BUTTON
-      const rightBtn = document.createElement("button");
-      rightBtn.className = "scroll-btn right";
-      rightBtn.innerHTML = "&#10095;"; // right arrow
-      rightBtn.addEventListener("click", () => {
-        carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
-      });
-      carouselContainer.appendChild(rightBtn);
+    const carousel = document.createElement("div");
+    carousel.className = "carousel";
 
-      sectionDiv.appendChild(carouselContainer);
-      container.appendChild(sectionDiv);
+    data[sectionName].forEach(item => {
+      const div = document.createElement("div");
+      div.className = "game-item";
 
-      // Center highlight effect (removed)
-      /*
-      function highlightCenter() {
-        const items = carousel.querySelectorAll(".game-item");
-        const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
-        items.forEach(item => item.classList.remove("centered"));
-
-        let closest = null;
-        let closestDistance = Infinity;
-        items.forEach(item => {
-          const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-          const distance = Math.abs(carouselCenter - itemCenter);
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closest = item;
-          }
-        });
-        if (closest) closest.classList.add("centered");
+      if (item.visible) {
+        div.innerHTML = `<img src="${item.cover}" alt="${item.title}"><p>${item.title}</p>`;
+        div.onclick = () => createIframeOverlay(item.url);
+      } else {
+        div.innerHTML = `<div class="placeholder"></div>`;
       }
 
-      carousel.addEventListener("scroll", highlightCenter);
-      highlightCenter(); // initial highlight
-      */
-    }
+      carousel.appendChild(div);
+    });
 
-    initSearch();
-  })
-  .catch(err => console.error("Failed to load games.json:", err));
+    carouselContainer.appendChild(carousel);
 
-// Search filter for all sections
+    // Scroll buttons
+    const leftBtn = document.createElement("button");
+    leftBtn.className = "scroll-btn left";
+    leftBtn.innerHTML = "&#10094;";
+    leftBtn.onclick = () => carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
+    carouselContainer.appendChild(leftBtn);
+
+    const rightBtn = document.createElement("button");
+    rightBtn.className = "scroll-btn right";
+    rightBtn.innerHTML = "&#10095;";
+    rightBtn.onclick = () => carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
+    carouselContainer.appendChild(rightBtn);
+
+    sectionDiv.appendChild(carouselContainer);
+    container.appendChild(sectionDiv);
+  }
+
+  initSearch();
+}
+
+// Search filter
 function initSearch() {
   const input = document.querySelector(".search input");
   input.addEventListener("input", () => {
@@ -101,3 +99,9 @@ function initSearch() {
     });
   });
 }
+
+// ---- INIT ----
+// Choose which JSON to load: apps or games
+// Example: "apps/apps.json" or "games/games.json"
+const currentPage = window.location.pathname.includes("/apps/") ? "apps/apps.json" : "games/games.json";
+loadJSON(currentPage);
