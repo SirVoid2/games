@@ -14,7 +14,7 @@
   ],
   
   "Apps": [
-    { "title": "KodaStreams", "cover": "images/logo.png", "url": "KodaStreams", "visible": true },
+    { "title": "Jellyfin", "cover": "images/logo.png", "url": "Jellyfin", "visible": true },
     { "title": "" }
   ]
  
