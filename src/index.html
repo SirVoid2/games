@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Button Overlay Test</title>
+<title>Image Button Test</title>
 <style>
   body {
     background: #141414;
@@ -35,75 +35,14 @@
     transform: scale(1.05);
     filter: brightness(0.85);
   }
-
-  /* Overlay */
-  .iframe-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.9);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-
-  .iframe-overlay.active {
-    display: flex;
-  }
-
-  .iframe-overlay iframe {
-    width: 80%;
-    height: 80%;
-    border: none;
-    border-radius: 12px;
-  }
-
-  /* Close button */
-  .close-btn {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
-    color: #fff;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .close-btn:hover {
-    color: #ff4444;
-  }
 </style>
 </head>
 <body>
 
 <!-- Image button -->
-<div class="img-button" id="openBtn">
+<div class="img-button" onclick="alert('Button clicked!')">
   <img src="Retro Bowl/retro-bowl.jpg" alt="Retro Bowl">
 </div>
-
-<!-- Iframe overlay -->
-<div class="iframe-overlay" id="overlay">
-  <button class="close-btn" id="closeBtn">×</button>
-  <iframe src="Retro Bowl"></iframe>
-</div>
-
-<script>
-  const openBtn = document.getElementById('openBtn');
-  const overlay = document.getElementById('overlay');
-  const closeBtn = document.getElementById('closeBtn');
-
-  openBtn.addEventListener('click', () => {
-    overlay.classList.add('active');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    overlay.classList.remove('active');
-  });
-</script>
 
 </body>
 </html>
