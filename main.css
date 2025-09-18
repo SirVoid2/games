@@ -211,7 +211,7 @@ nav ul.nav-links li a:hover {
   box-shadow: none;
 }
 
-/* IFRAME OVERLAY FOR APPS */
+/* IFRAME OVERLAY */
 .iframe-overlay {
   position: fixed;
   top: 0;
