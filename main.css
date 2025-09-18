@@ -93,7 +93,7 @@ h2 {
 }
 
 .movie-item:hover img {
-  filter: brightness(0.85);
+  filter: brightness(1.25);
 }
 
 /* SCROLL BUTTONS */
