@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Koda</title>
 <link rel="icon" type="image/x-icon" href="images/logo.png">
-<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="../main.css">
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
 <!-- NAVBAR -->
 <nav>
   <img src="images/logo.png" alt="logo">
-  <h1>Koda</h1>
+  <h1>KodaGames</h1>
 
   <!-- Hamburger for mobile -->
   <div class="nav-toggle">
@@ -22,17 +22,26 @@
 
   <ul class="nav-links">
     <li><a href="https://google-classr00m.vercel.app/">Home</a></li>
-    <li><a href="../games/">Games</a></li>
     <li><a href="../apps/">Apps</a></li>
     <li><a href="../notes.md">Notes</a></li>
   </ul>
 </nav>
 
-  <div class="content">
-  <h2>Welcome to Koda</h2>
-  <p>Your hub for games, movies, shows, music and more. Use the navigation bar at the top to explore!</p> 
+<div class="content">
 
+  <!-- SEARCH BAR -->
+  <div class="search">
+    <input type="text" placeholder="Search...">
+    <button><i class="fas fa-search"></i></button>
   </div>
 
+  <!-- MULTIPLE GAME SECTIONS -->
+  <div id="game-sections">
+    <!-- Sections populated via JS -->
+  </div>
+
+</div>
+
+<script type="module" src="../script.js"></script>
 </body>
 </html>
