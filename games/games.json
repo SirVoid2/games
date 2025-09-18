@@ -2,7 +2,7 @@
   "All": [
     { "title": "Retro Bowl", "cover": "Retro Bowl/retro-bowl.jpg", "url": "Retro Bowl", "visible": true },
     { "title": "Retro Bowl College", "cover": "Retro Bowl College/retro-bowl-college.png", "url": "Retro Bowl College", "visible": true },
-    { "title": "Ant Art Tycoon", "cover": "Ant Art Tycoon/ant-art-tycoon.png", "url": "Ant Art Tycoon", "visible": true },
+    { "title": "Ant Art Tycoon", "cover": "Ant Art Tycoon/ant-art-tycoon.png", "url": "Ant Art Tycoon/index.html", "visible": true },
     { "title": "Drive Mad", "cover": "Drive Mad/drive-mad.jpg", "url": "Drive Mad", "visible": true },
     { "title": "1v1LoL", "cover": "1v1LoL/1v1lol.jpeg", "url": "1v1LoL", "visible": true },
     { "title": "Minecraft", "cover": "Minecraft/mc.png", "url": "Minecraft", "visible": true },
