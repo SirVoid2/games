@@ -1,40 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KodaGames</title>
-<link rel="icon" type="image/x-icon" href="images/logo.png">
-<link rel="stylesheet" href="../main.css">
-<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KodaGames</title>
+  <link rel="stylesheet" href="../main.css">
 </head>
 <body>
-
-<!-- NAVBAR -->
-<nav>
-  <img src="images/logo.png" alt="logo">
-  <h1>Emilio 67</h1>
-  <ul class="nav-links">
-    <li><a href="https://google-classr00m.vercel.app/">Main</a></li>
-    <li><a href="../apps/">KodaApps</a></li> <!-- new link -->
-  </ul>
-</nav>
-
-<div class="content">
-
-  <!-- SEARCH BAR -->
   <div class="search">
-    <input type="text" placeholder="Search...">
-    <button><i class="fas fa-search"></i></button>
+    <input type="text" placeholder="Search games...">
   </div>
+  <div id="game-sections"></div>
 
-  <!-- MULTIPLE GAME SECTIONS -->
-  <div id="game-sections">
-    <!-- Sections populated via JS -->
-  </div>
+  <script>
+  // Load games.json and render sections
+  fetch("games.json")
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("game-sections");
 
-</div>
+      Object.entries(data).forEach(([sectionName, games]) => {
+        const section = document.createElement("div");
+        section.className = "row";
 
-<script type="module" src="script.js"></script>
+        section.innerHTML = `
+          <h2>${sectionName}</h2>
+          <div class="carousel-container">
+            <div class="carousel"></div>
+            <button class="scroll-btn left">&#10094;</button>
+            <button class="scroll-btn right">&#10095;</button>
+          </div>
+        `;
+
+        const carousel = section.querySelector(".carousel");
+
+        games.forEach(game => {
+          const item = document.createElement("div");
+          item.className = "game-item";
+
+          if (game.visible) {
+            item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
+            item.addEventListener("click", () => openGameIframe(game));
+          } else {
+            item.innerHTML = `<div class="placeholder"></div>`;
+          }
+
+          carousel.appendChild(item);
+        });
+
+        // Scroll buttons
+        section.querySelector(".left").addEventListener("click", () =>
+          carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" })
+        );
+        section.querySelector(".right").addEventListener("click", () =>
+          carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" })
+        );
+
+        container.appendChild(section);
+      });
+
+      initSearch();
+    })
+    .catch(err => console.error("Failed to load games.json:", err));
+
+  // Search filter
+  function initSearch() {
+    const input = document.querySelector(".search input");
+    input.addEventListener("input", () => {
+      const term = input.value.toLowerCase();
+      document.querySelectorAll(".game-item").forEach(item => {
+        const title = item.querySelector("p")?.textContent.toLowerCase() || "";
+        item.style.display = title && !title.includes(term) ? "none" : "flex";
+      });
+    });
+  }
+
+  // Open game in iframe overlay
+  function openGameIframe(game) {
+    const overlay = document.createElement("div");
+    overlay.className = "iframe-overlay";
+
+    overlay.innerHTML = `
+      <button class="close-btn">×</button>
+      <iframe src="${game.url}"></iframe>
+    `;
+
+    overlay.querySelector(".close-btn").addEventListener("click", () =>
+      document.body.removeChild(overlay)
+    );
+
+    document.body.appendChild(overlay);
+  }
+  </script>
 </body>
 </html>
