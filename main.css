@@ -68,7 +68,7 @@ h2 {
 .movie-item {
   flex: 0 0 auto;
   width: 150px;
-  height: 500px;
+  height: 84px;
   scroll-snap-align: start;
   text-decoration: none;
   cursor: pointer;
