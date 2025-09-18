@@ -1,4 +1,4 @@
-// Load apps/games from JSON
+// Load apps from apps.json
 fetch("apps.json")
   .then(res => res.json())
   .then(data => {
@@ -20,14 +20,14 @@ fetch("apps.json")
       const carousel = document.createElement("div");
       carousel.className = "carousel";
 
-      // Render items
-      data[sectionName].forEach(game => {
+      // Render apps
+      data[sectionName].forEach(app => {
         const item = document.createElement("div");
         item.className = "game-item";
 
-        if (game.visible) {
-          item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-          item.onclick = () => window.location.href = game.url;
+        if (app.visible) {
+          item.innerHTML = `<img src="${app.cover}" alt="${app.title}"><p>${app.title}</p>`;
+          item.addEventListener("click", () => openAppIframe(app));
         } else {
           item.innerHTML = `<div class="placeholder"></div>`;
         }
@@ -55,21 +55,6 @@ fetch("apps.json")
       });
       carouselContainer.appendChild(rightBtn);
 
-      // Show/hide scroll buttons based on scroll position
-      function updateScrollButtons() {
-        const scrollLeft = carousel.scrollLeft;
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-
-        if (scrollLeft > 5) leftBtn.classList.remove("hidden");
-        else leftBtn.classList.add("hidden");
-
-        if (scrollLeft < maxScroll - 5) rightBtn.classList.remove("hidden");
-        else rightBtn.classList.add("hidden");
-      }
-
-      carousel.addEventListener("scroll", updateScrollButtons);
-      updateScrollButtons(); // initial check
-
       sectionDiv.appendChild(carouselContainer);
       container.appendChild(sectionDiv);
     }
@@ -89,4 +74,46 @@ function initSearch() {
       item.style.display = title === "" ? "flex" : title.includes(term) ? "flex" : "none";
     });
   });
+}
+
+// Open app in iframe overlay
+function openAppIframe(app) {
+  // Create overlay
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100vw";
+  overlay.style.height = "100vh";
+  overlay.style.backgroundColor = "rgba(0,0,0,0.9)";
+  overlay.style.zIndex = 9999;
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+
+  // Close button
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "×";
+  closeBtn.style.position = "absolute";
+  closeBtn.style.top = "20px";
+  closeBtn.style.right = "30px";
+  closeBtn.style.fontSize = "40px";
+  closeBtn.style.color = "#fff";
+  closeBtn.style.background = "none";
+  closeBtn.style.border = "none";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.addEventListener("click", () => document.body.removeChild(overlay));
+  overlay.appendChild(closeBtn);
+
+  // iframe
+  const iframe = document.createElement("iframe");
+  iframe.src = app.url;
+  iframe.style.width = "90%";
+  iframe.style.height = "90%";
+  iframe.style.border = "none";
+  iframe.style.borderRadius = "12px";
+  overlay.appendChild(iframe);
+
+  document.body.appendChild(overlay);
 }
