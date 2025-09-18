@@ -13,7 +13,7 @@
     { "title": "" }
   ],
   
-  "Apps": [
+  "ᴀᴘᴘꜱ": [
     { "title": "Jellyfin", "cover": "images/logo.png", "url": "Jellyfin", "visible": true },
     { "title": "" }
   ]
