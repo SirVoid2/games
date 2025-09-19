@@ -95,37 +95,6 @@ h2 {
   filter: brightness(1.25);
 }
 
-/*Audiobook items */
-.audiobook-item {
-  flex: 0 0 auto;
-  width: 160px;
-  height: 275px;
-  scroll-snap-align: start;
-  text-decoration: none;
-  cursor: pointer;
-  display: block;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.audiobook-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease, filter 0.3s ease;
-  display: block;
-}
-
-/* HOVER EFFECTS */
-.audiobook-item:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
-}
-
-.audiobook-item:hover img {
-  filter: brightness(1.25);
-}
 /* SCROLL BUTTONS */
 .scroll-btn {
   position: absolute;
