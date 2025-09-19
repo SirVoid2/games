@@ -3,141 +3,316 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Koda</title>
-<link rel="icon" type="image/png" href="images/logo.png" />
-<link rel="stylesheet" href="main.css" />
+<title>Media Gallery with Fullscreen</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
 <style>
-/* Overlay styles */
-#iframeOverlay {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+body {
+  background-color: #141414;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
 }
 
+/* Headings */
+h2 {
+  font-size: 22px;
+  margin: 20px 0 10px;
+  font-weight: 700;
+}
+
+/* CAROUSEL CONTAINER */
+.carousel-container {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+/* Carousel scroll area */
+.carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 0;
+  -webkit-overflow-scrolling: touch;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Item styles for games */
+.g-item {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.g-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.g-item:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+.g-item:hover img {
+  filter: brightness(0.85);
+}
+
+/* Item styles for movies */
+.m-item {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 275px;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.m-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.m-item:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Scroll buttons for carousels */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(20, 20, 20, 0.7);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  width: 35px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10;
+}
+.scroll-btn.left {
+  left: 0;
+}
+.scroll-btn.right {
+  right: 0;
+}
+.scroll-btn:hover {
+  background: rgba(20, 20, 20, 0.95);
+  transform: scale(1.05);
+}
+
+/* Overlay styles with rounded iframe */
+#iframeOverlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center; 
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  flex-direction: column;
+}
 #iframeContainer {
   position: relative;
   width: 80%;
   height: 80%;
   background: #fff;
-  padding: 10px;
-  box-sizing: border-box;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-
 #iframeContainer iframe {
+  flex: 1;
   width: 100%;
   height: 100%;
+  border-radius: 12px;
   border: none;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
 }
-
-#closeOverlay {
+#topButtons {
+  display: flex;
+  justify-content: flex-end;
+  background: transparent;
+  padding: 10px;
   position: absolute;
-  top: 5px;
-  right: 10px;
-  background: #333;
-  color: #fff;
+  top: 0; right: 0;
+  width: 100%;
+  z-index: 1000;
+}
+#closeOverlay, #fullscreenBtn {
+  background: rgba(50, 50, 50, 0.8);
   border: none;
-  padding: 5px 10px;
+  color: #fff;
+  padding: 6px 12px;
+  margin-left: 8px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  z-index: 10000;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+#closeOverlay:hover, #fullscreenBtn:hover {
+  background: rgba(70, 70, 70, 1);
 }
 </style>
 </head>
 <body>
 
-<!-- Your existing content -->
-
-<h2>Games!</h2>
-<div class="carousel-container">
-  <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
-  <div class="carousel">
-    <br>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Retro Bowl/')">
-      <img src="src/g/Retro Bowl/retro-bowl.jpg" alt="Retro Bowl" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Retro Bowl College/')">
-      <img src="src/g/Retro Bowl College/retro-bowl-college.png" alt="Retro Bowl College" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Ant Art Tycoon/')">
-      <img src="src/g/Ant Art Tycoon/ant-art-tycoon.png" alt="Ant Art Tycoon" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Drive Mad/')">
-      <img src="src/g/Drive Mad/drive-mad.jpg" alt="Drive Mad" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/1v1LoL/')">
-      <img src="src/g/1v1LoL/1v1lol.jpeg" alt="1v1LoL" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Minecraft/')">
-      <img src="src/g/Minecraft/mc.png" alt="Minecraft" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Crossy Road/')">
-      <img src="src/g/Crossy Road/crossy-road.webp" alt="Crossy Road" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Bloxorz/')">
-      <img src="src/g/Bloxorz/bloxorz.jpg" alt="Bloxorz" />
-    </a>
-    <a href="#" class="g-item" onclick="openIframeOverlay('src/g/Fruit Ninja/')">
-      <img src="src/g/Fruit Ninja/fruit-ninja.png" alt="Fruit Ninja" />
-    </a>
-  </div>
-  <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
-</div>
-
 <h2>Movies</h2>
-<div class="carousel-container">
+<div id="movies-section" class="carousel-container">
   <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
-  <div class="carousel">
-    <br>
-    <a href="#" class="m-item" onclick="openIframeOverlay('src/m/Superman/')">
-      <img src="src/m/Superman/superman.webp" alt="Superman" />
-    </a>
-    <a href="#" class="m-item" onclick="openIframeOverlay('src/m/Hunger Games/')">
-      <img src="src/m/Hunger Games/hunger-games.webp" alt="Hunger Games" />
-    </a>
-  </div>
+  <div class="carousel" id="movies-carousel"></div>
   <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
 </div>
+
+<h2>Games</h2>
+<div id="game-sections"></div>
 
 <!-- Overlay for iframe -->
 <div id="iframeOverlay">
   <div id="iframeContainer">
-    <button id="closeOverlay" onclick="closeIframeOverlay()">X</button>
+    <div id="topButtons">
+      <button id="closeOverlay" onclick="closeIframeOverlay()">×</button>
+      <button id="fullscreenBtn" onclick="toggleFullscreen()">Fullscreen</button>
+    </div>
     <iframe src="" id="iframeContent"></iframe>
   </div>
 </div>
 
 <script>
+// Carousel scrolling functions
 function scrollLeft(container) {
   const carousel = container.querySelector('.carousel');
   carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
 }
-
 function scrollRight(container) {
   const carousel = container.querySelector('.carousel');
   carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
 }
 
-function openIframeOverlay(url) {
-  const overlay = document.getElementById('iframeOverlay');
-  const iframe = document.getElementById('iframeContent');
-  iframe.src = url;
-  overlay.style.display = 'flex';
+// Overlay control
+const iframeOverlay = document.getElementById('iframeOverlay');
+const iframeContent = document.getElementById('iframeContent');
+let isFullscreen = false;
+
+function openMediaIframe(url) {
+  iframeContent.src = url;
+  iframeOverlay.style.display = 'flex';
+  isFullscreen = false;
+}
+function closeIframeOverlay() {
+  iframeContent.src = '';
+  iframeOverlay.style.display = 'none';
+}
+function toggleFullscreen() {
+  if (!isFullscreen) {
+    if (iframeContent.requestFullscreen) {
+      iframeContent.requestFullscreen();
+    } else if (iframeContent.webkitRequestFullscreen) {
+      iframeContent.webkitRequestFullscreen();
+    } else if (iframeContent.msRequestFullscreen) {
+      iframeContent.msRequestFullscreen();
+    }
+    isFullscreen = true;
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+    isFullscreen = false;
+  }
 }
 
-function closeIframeOverlay() {
-  const overlay = document.getElementById('iframeOverlay');
-  const iframe = document.getElementById('iframeContent');
-  iframe.src = '';
-  overlay.style.display = 'none';
-}
+// Load movies from movies.json
+fetch('movies.json')
+  .then(res => res.json())
+  .then(movies => {
+    const container = document.getElementById('movies-carousel');
+    movies.forEach(movie => {
+      const item = document.createElement('div');
+      item.className = 'media-item';
+      item.innerHTML = `<img src="${movie.cover}" alt="${movie.title}"><p>${movie.title}</p>`;
+      item.onclick = () => openMediaIframe(movie.video);
+      container.appendChild(item);
+    });
+  })
+  .catch(err => console.error('Failed to load movies.json:', err));
+
+// Load games from game.json
+fetch('games.json')
+  .then(res => res.json())
+  .then(games => {
+    const container = document.createElement('div');
+    container.className = 'row';
+
+    const sectionTitle = document.createElement('h2');
+    sectionTitle.textContent = "My Games";
+    container.appendChild(sectionTitle);
+
+    const carouselContainer = document.createElement('div');
+    carouselContainer.className = 'carousel-container';
+
+    const leftBtn = document.createElement('button');
+    leftBtn.className = 'scroll-btn left';
+    leftBtn.innerHTML = '&#10094;';
+    leftBtn.onclick = () => {
+      const carousel = carouselContainer.querySelector('.carousel');
+      carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
+    };
+    carouselContainer.appendChild(leftBtn);
+
+    const carousel = document.createElement('div');
+    carousel.className = 'carousel';
+
+    games.forEach(game => {
+      const item = document.createElement('div');
+      item.className = 'media-item';
+      item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
+      item.onclick = () => openMediaIframe(game.url);
+      carousel.appendChild(item);
+    });
+
+    carouselContainer.appendChild(carousel);
+
+    const rightBtn = document.createElement('button');
+    rightBtn.className = 'scroll-btn right';
+    rightBtn.innerHTML = '&#10095;';
+    rightBtn.onclick = () => {
+      const carousel = carouselContainer.querySelector('.carousel');
+      carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
+    };
+    carouselContainer.appendChild(rightBtn);
+
+    container.appendChild(carouselContainer);
+    document.getElementById('game-sections').appendChild(container);
+  })
+  .catch(err => console.error('Failed to load game.json:', err));
 </script>
 
 </body>
