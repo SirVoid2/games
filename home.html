@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Media Gallery with Fullscreen</title>
+<title>Koda</title>
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -36,13 +36,12 @@ h2 {
   gap: 20px;
   overflow-x: auto;
   padding: 20px 0;
-  -webkit-overflow-scrolling: touch;
 }
 .carousel::-webkit-scrollbar {
   display: none;
 }
 
-/* Item styles for games */
+/* Item styles for g-items (games) */
 .g-item {
   flex: 0 0 auto;
   width: 150px;
@@ -58,14 +57,11 @@ h2 {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  border-radius: 12px;
 }
 .g-item:hover {
   transform: scale(1.1);
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
-}
-.g-item:hover img {
-  filter: brightness(0.85);
 }
 
 /* Item styles for movies */
@@ -181,21 +177,25 @@ h2 {
 </head>
 <body>
 
+<h2>Games!</h2>
+<div class="carousel-container">
+  <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
+  <div class="carousel" id="games-carousel"></div>
+  <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
+</div>
+
 <h2>Movies</h2>
-<div id="movies-section" class="carousel-container">
+<div class="carousel-container">
   <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
   <div class="carousel" id="movies-carousel"></div>
   <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
 </div>
 
-<h2>Games</h2>
-<div id="game-sections"></div>
-
 <!-- Overlay for iframe -->
 <div id="iframeOverlay">
   <div id="iframeContainer">
     <div id="topButtons">
-      <button id="closeOverlay" onclick="closeIframeOverlay()">×</button>
+      <button id="closeOverlay" onclick="closeIframeOverlay()">X</button>
       <button id="fullscreenBtn" onclick="toggleFullscreen()">Fullscreen</button>
     </div>
     <iframe src="" id="iframeContent"></iframe>
@@ -203,7 +203,114 @@ h2 {
 </div>
 
 <script>
-// Carousel scrolling functions
+// Embedded data for games and movies
+const gGames = [
+  { title: "Retro Bowl", cover: "src/g/Retro Bowl/retro-bowl.jpg", url: "src/g/Retro Bowl/" },
+  { title: "Retro Bowl College", cover: "src/g/Retro Bowl College/retro-bowl-college.png", url: "src/g/Retro Bowl College/" },
+  { title: "Ant Art Tycoon", cover: "src/g/Ant Art Tycoon/ant-art-tycoon.png", url: "src/g/Ant Art Tycoon/" },
+  { title: "Drive Mad", cover: "src/g/Drive Mad/drive-mad.jpg", url: "src/g/Drive Mad/" },
+  { title: "1v1LoL", cover: "src/g/1v1LoL/1v1lol.jpeg", url: "src/g/1v1LoL/" },
+  { title: "Minecraft", cover: "src/g/Minecraft/mc.png", url: "src/g/Minecraft/" },
+  { title: "Crossy Road", cover: "src/g/Crossy Road/crossy-road.webp", url: "src/g/Crossy Road/" },
+  { title: "Bloxorz", cover: "src/g/Bloxorz/bloxorz.jpg", url: "src/g/Bloxorz/" },
+  { title: "Fruit Ninja", cover: "src/g/Fruit Ninja/fruit-ninja.png", url: "src/g/Fruit Ninja/" }
+];
+
+const movies = [
+  { title: "Superman", cover: "src/m/Superman/superman.webp", url: "src/m/Superman/" },
+  { title: "Hunger Games", cover: "src/m/Hunger Games/hunger-games.webp", url: "src/m/Hunger Games/" }
+];
+
+// Populate games section
+const gContainer = document.createElement('div');
+gContainer.className = 'row';
+
+const gTitle = document.createElement('h2');
+gTitle.textContent = "My Games";
+gContainer.appendChild(gTitle);
+
+const gCarouselContainer = document.createElement('div');
+gCarouselContainer.className = 'carousel-container';
+
+const gLeftBtn = document.createElement('button');
+gLeftBtn.className = 'scroll-btn left';
+gLeftBtn.innerHTML = '&#10094;';
+gLeftBtn.onclick = () => {
+  const carousel = gCarouselContainer.querySelector('.carousel');
+  carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
+};
+
+const gCarousel = document.createElement('div');
+gCarousel.className = 'carousel';
+
+gGames.forEach(g => {
+  const item = document.createElement('div');
+  item.className = 'g-item';
+  item.innerHTML = `<img src="${g.cover}" alt="${g.title}"><p>${g.title}</p>`;
+  item.onclick = () => openIframeOverlay(g.url);
+  gCarousel.appendChild(item);
+});
+
+const gRightBtn = document.createElement('button');
+gRightBtn.className = 'scroll-btn right';
+gRightBtn.innerHTML = '&#10095;';
+gRightBtn.onclick = () => {
+  const carousel = gCarousel.querySelector('.carousel');
+  carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
+};
+
+gCarouselContainer.appendChild(gLeftBtn);
+gCarouselContainer.appendChild(gCarousel);
+gCarouselContainer.appendChild(gRightBtn);
+gContainer.appendChild(gCarouselContainer);
+document.body.appendChild(gContainer);
+
+// Populate movies section
+const mContainer = document.createElement('div');
+mContainer.className = 'row';
+
+const mTitle = document.createElement('h2');
+mTitle.textContent = "Movies";
+mContainer.appendChild(mTitle);
+
+const mCarouselContainer = document.createElement('div');
+mCarouselContainer.className = 'carousel-container';
+
+const mLeftBtn = document.createElement('button');
+mLeftBtn.className = 'scroll-btn left';
+mLeftBtn.innerHTML = '&#10094;';
+mLeftBtn.onclick = () => {
+  const carousel = mCarouselContainer.querySelector('.carousel');
+  carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
+};
+
+const mCarousel = document.createElement('div');
+mCarousel.className = 'carousel';
+
+movies.forEach(m => {
+  const item = document.createElement('div');
+  item.className = 'm-item';
+  item.innerHTML = `<img src="${m.cover}" alt="${m.title}"><p>${m.title}</p>`;
+  item.onclick = () => openIframeOverlay(m.url);
+  mCarousel.appendChild(item);
+});
+
+const mRightBtn = document.createElement('button');
+mRightBtn.className = 'scroll-btn right';
+mRightBtn.innerHTML = '&#10095;';
+mRightBtn.onclick = () => {
+  const carousel = mCarousel.querySelector('.carousel');
+  carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
+};
+
+mCarouselContainer.appendChild(mLeftBtn);
+mCarouselContainer.appendChild(mCarousel);
+mCarouselContainer.appendChild(mRightBtn);
+mContainer.appendChild(mCarouselContainer);
+
+document.body.appendChild(mContainer);
+
+// Functions for scrolling
 function scrollLeft(container) {
   const carousel = container.querySelector('.carousel');
   carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
@@ -215,26 +322,26 @@ function scrollRight(container) {
 
 // Overlay control
 const iframeOverlay = document.getElementById('iframeOverlay');
-const iframeContent = document.getElementById('iframeContent');
+const iframe = document.getElementById('iframeContent');
 let isFullscreen = false;
 
-function openMediaIframe(url) {
-  iframeContent.src = url;
+function openIframeOverlay(url) {
+  iframe.src = url;
   iframeOverlay.style.display = 'flex';
   isFullscreen = false;
 }
 function closeIframeOverlay() {
-  iframeContent.src = '';
+  iframe.src = '';
   iframeOverlay.style.display = 'none';
 }
 function toggleFullscreen() {
   if (!isFullscreen) {
-    if (iframeContent.requestFullscreen) {
-      iframeContent.requestFullscreen();
-    } else if (iframeContent.webkitRequestFullscreen) {
-      iframeContent.webkitRequestFullscreen();
-    } else if (iframeContent.msRequestFullscreen) {
-      iframeContent.msRequestFullscreen();
+    if (iframe.requestFullscreen) {
+      iframe.requestFullscreen();
+    } else if (iframe.webkitRequestFullscreen) {
+      iframe.webkitRequestFullscreen();
+    } else if (iframe.msRequestFullscreen) {
+      iframe.msRequestFullscreen();
     }
     isFullscreen = true;
   } else {
@@ -248,71 +355,6 @@ function toggleFullscreen() {
     isFullscreen = false;
   }
 }
-
-// Load movies from movies.json
-fetch('movies.json')
-  .then(res => res.json())
-  .then(movies => {
-    const container = document.getElementById('movies-carousel');
-    movies.forEach(movie => {
-      const item = document.createElement('div');
-      item.className = 'media-item';
-      item.innerHTML = `<img src="${movie.cover}" alt="${movie.title}"><p>${movie.title}</p>`;
-      item.onclick = () => openMediaIframe(movie.video);
-      container.appendChild(item);
-    });
-  })
-  .catch(err => console.error('Failed to load movies.json:', err));
-
-// Load games from game.json
-fetch('games.json')
-  .then(res => res.json())
-  .then(games => {
-    const container = document.createElement('div');
-    container.className = 'row';
-
-    const sectionTitle = document.createElement('h2');
-    sectionTitle.textContent = "My Games";
-    container.appendChild(sectionTitle);
-
-    const carouselContainer = document.createElement('div');
-    carouselContainer.className = 'carousel-container';
-
-    const leftBtn = document.createElement('button');
-    leftBtn.className = 'scroll-btn left';
-    leftBtn.innerHTML = '&#10094;';
-    leftBtn.onclick = () => {
-      const carousel = carouselContainer.querySelector('.carousel');
-      carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
-    };
-    carouselContainer.appendChild(leftBtn);
-
-    const carousel = document.createElement('div');
-    carousel.className = 'carousel';
-
-    games.forEach(game => {
-      const item = document.createElement('div');
-      item.className = 'media-item';
-      item.innerHTML = `<img src="${game.cover}" alt="${game.title}"><p>${game.title}</p>`;
-      item.onclick = () => openMediaIframe(game.url);
-      carousel.appendChild(item);
-    });
-
-    carouselContainer.appendChild(carousel);
-
-    const rightBtn = document.createElement('button');
-    rightBtn.className = 'scroll-btn right';
-    rightBtn.innerHTML = '&#10095;';
-    rightBtn.onclick = () => {
-      const carousel = carouselContainer.querySelector('.carousel');
-      carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
-    };
-    carouselContainer.appendChild(rightBtn);
-
-    container.appendChild(carouselContainer);
-    document.getElementById('game-sections').appendChild(container);
-  })
-  .catch(err => console.error('Failed to load game.json:', err));
 </script>
 
 </body>
