@@ -60,17 +60,5 @@
     <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
   </div>
 
-<script>
-function scrollLeft(container) {
-  const carousel = container.querySelector('.carousel');
-  carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
-}
-
-function scrollRight(container) {
-  const carousel = container.querySelector('.carousel');
-  carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
-}
-</script>
-
 </body>
 </html>
