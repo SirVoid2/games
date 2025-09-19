@@ -116,7 +116,7 @@ h2 {
   transform: scale(1.05);
 }
 
-/* Overlay styles with rounded iframe, plus toggle size */
+/* Overlay styles with rounded iframe, no toggle size */
 #iframeOverlay {
   display: none;
   position: fixed;
@@ -141,10 +141,13 @@ h2 {
   overflow: hidden;
   transition: width 0.3s, height 0.3s;
 }
+/* Removed enlarged class styles */
+/*
 #iframeContainer.enlarged {
   width: 95%;
   height: 95%;
 }
+*/
 #iframeContainer iframe {
   flex: 1;
   width: 100%;
@@ -163,7 +166,7 @@ h2 {
   width: 100%;
   z-index: 1000;
 }
-#closeOverlay, #sizeBtn {
+#closeOverlay {
   background: rgba(50, 50, 50, 0.8);
   border: none;
   color: #fff;
@@ -175,7 +178,7 @@ h2 {
   font-size: 14px;
   transition: background 0.2s;
 }
-#closeOverlay:hover, #sizeBtn:hover {
+#closeOverlay:hover {
   background: rgba(70, 70, 70, 1);
 }
 </style>
@@ -187,7 +190,7 @@ h2 {
   <div id="iframeContainer">
     <div id="topButtons">
       <button id="closeOverlay" onclick="closeIframeOverlay()">X</button>
-      <button id="sizeBtn" onclick="toggleSize()">Make Bigger</button>
+      <!-- Removed size toggle button -->
     </div>
     <iframe src="" id="iframeContent"></iframe>
   </div>
@@ -199,10 +202,10 @@ const gGames = [
   { title: "Retro Bowl", cover: "src/g/Retro Bowl/retro-bowl.jpg", url: "src/g/Retro Bowl/" },
   { title: "Retro Bowl College", cover: "src/g/Retro Bowl College/retro-bowl-collegee.png", url: "src/g/Retro Bowl College/" },
   { title: "Minecraft", cover: "src/g/Minecraft/mc.png", url: "src/g/Minecraft/" },
+  { title: "Ant Art Tycoon", cover: "src/g/Ant Art Tycoon/ant-art-tycoon.png", url: "src/g/Ant Art Tycoon/" },
   { title: "1v1LoL", cover: "src/g/1v1LoL/1v1lol.jpeg", url: "src/g/1v1LoL/" },
   { title: "Bloxorz", cover: "src/g/Bloxorz/bloxorz.jpg", url: "src/g/Bloxorz/" },
   { title: "Cookie Clicker", cover: "src/g/Cookie Clicker/cookie-clicker.jpg", url: "src/g/Cookie Clicker/" },
-
   // add more if needed
 ];
 
@@ -262,43 +265,17 @@ function createSection(title, items, className) {
 createSection("My Games", gGames, 'g-item');
 createSection("Movies", movies, 'm-item');
 
-// Scroll functions
-function scrollLeft(container) {
-  const carousel = container.querySelector('.carousel');
-  carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
-}
-function scrollRight(container) {
-  const carousel = container.querySelector('.carousel');
-  carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
-}
-
 // Overlay controls
 const overlay = document.getElementById('iframeOverlay');
 const iframe = document.getElementById('iframeContent');
 
-let isBig = false;
-
 function openIframeOverlay(url) {
   iframe.src = url;
   overlay.style.display = 'flex';
-  // reset size if needed
-  document.getElementById('iframeContainer').classList.remove('enlarged');
-  document.getElementById('sizeBtn').textContent = "Make Bigger";
-  isBig = false;
 }
 function closeIframeOverlay() {
   iframe.src = '';
   overlay.style.display = 'none';
-}
-function toggleSize() {
-  const container = document.getElementById('iframeContainer');
-  const btn = document.getElementById('sizeBtn');
-  container.classList.toggle('enlarged');
-  if (container.classList.contains('enlarged')) {
-    btn.textContent = 'Make Smaller';
-  } else {
-    btn.textContent = 'Make Bigger';
-  }
 }
 </script>
 
