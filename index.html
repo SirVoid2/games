@@ -60,40 +60,20 @@
     <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
   </div>
 
-<h2>Ebooks</h2>
-<div class="carousel-container">
-  <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
-  <div class="carousel">
-    <br>
-    <!-- Clicking cover opens PDF in iframe viewer -->
-    <a href="#" class="ebook-item" onclick="openPDF('src/ebooks/OCDaniel/ocdaniel.pdf'); return false;">
-      <img src="src/ebooks/OCDaniel/ocdaniel.webp" alt="OCDaniel">
-    </a>
-    <a href="#" class="ebook-item" onclick="openPDF('src/ebooks/Hunger Games/hunger-games.pdf'); return false;">
-      <img src="src/ebooks/Hunger Games/hunger-games.webp" alt="Hunger Games">
-    </a>
+  <h2>Ebooks</h2>
+  <div class="carousel-container">
+    <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
+    <div class="carousel">
+      <br>
+      <a href="src/ebooks/OCDaniel/" class="ebook-item">
+        <img src="src/ebooks/OCDaniel/ocdaniel.webp" alt="OCDaniel">
+      </a>
+      <a href="src/ebooks/Hunger Games/" class="ebook-item">
+        <img src="src/ebooks/Hunger Games/hunger-games.webp" alt="Hunger Games">
+      </a>
+    </div>
+    <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
   </div>
-  <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
-</div>
-
-<!-- Fullscreen PDF viewer -->
-<div id="pdf-viewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#111;z-index:9999;">
-  <div style="text-align:right;background:#222;padding:10px;">
-    <button onclick="closePDF()" style="background:#444;color:#fff;padding:5px 10px;border:none;cursor:pointer;">Close ✖</button>
-  </div>
-  <iframe id="pdf-frame" src="" width="100%" height="95%"></iframe>
-</div>
-
-<script>
-function openPDF(file) {
-  document.getElementById('pdf-frame').src = file;
-  document.getElementById('pdf-viewer').style.display = 'block';
-}
-function closePDF() {
-  document.getElementById('pdf-viewer').style.display = 'none';
-  document.getElementById('pdf-frame').src = "";
-}
-</script>
 
   <h2>AudioBooks</h2>
   <div class="carousel-container">
