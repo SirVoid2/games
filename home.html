@@ -1,64 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Koda</title>
-<link rel="icon" type="image/png" href="images/logo.png">
-<link rel="stylesheet" href="main.css">
+<link rel="icon" type="image/png" href="images/logo.png" />
+<link rel="stylesheet" href="main.css" />
+
+<style>
+/* Overlay styles */
+#iframeOverlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#iframeContainer {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  background: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#iframeContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+#closeOverlay {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 10000;
+}
+</style>
 </head>
 <body>
 
-  <h2>Games!</h2>
-  <div class="carousel-container">
-    <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
-    <div class="carousel">
-      <br>
-      <a href="src/g/Retro Bowl/" class="g-item">
-        <img src="src/g/Retro Bowl/retro-bowl.jpg" alt="Retro Bowl">
-      </a>
-      <a href="src/g/Retro Bowl College/" class="g-item">
-        <img src="src/g/Retro Bowl College/retro-bowl-college.png" alt="Retro Bowl College">
-      </a>
-      <a href="src/g/Ant Art Tycoon/" class="g-item">
-        <img src="src/g/Ant Art Tycoon/ant-art-tycoon.png" alt="Ant Art Tycoon">
-      </a>
-      <a href="src/g/Drive Mad/" class="g-item">
-        <img src="src/games/Drive Mad/drive-mad.jpg" alt="Drive Mad">
-      </a>
-      <a href="src/g/1v1LoL/" class="g-item">
-        <img src="src/g/1v1LoL/1v1lol.jpeg" alt="1v1LoL">
-      </a>
-      <a href="src/g/Minecraft/" class="g-item">
-        <img src="src/g/Minecraft/mc.png" alt="Minecraft">
-      </a>
-      <a href="src/g/Crossy Road/" class="g-item">
-        <img src="src/g/Crossy Road/crossy-road.webp" alt="Crossy Road">
-      </a>
-      <a href="src/g/Bloxorz/" class="g-item">
-        <img src="src/g/Bloxorz/bloxorz.jpg" alt="Bloxorz">
-      </a>
-      <a href="src/g/Fruit Ninja/" class="g-item">
-        <img src="src/g/Fruit Ninja/fruit-ninja.png" alt="Fruit Ninja">
-      </a>
-    </div>
-    <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
-  </div>
+<!-- Your existing content -->
 
-  <h2>Movies</h2>
-  <div class="carousel-container">
-    <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
-    <div class="carousel">
-      <br>
-      <a href="src/m/Superman/" class="m-item">
-        <img src="src/m/Superman/superman.webp" alt="Superman">
-      </a>
-      <a href="src/m/Hunger Games/" class="m-item">
-        <img src="src/m/Hunger Games/hunger-games.webp" alt="Hunger Games">
-      </a>
-    </div>
-    <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
+<h2>Games!</h2>
+<div class="carousel-container">
+  <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
+  <div class="carousel">
+    <br>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/retro-bowl')">
+      <img src="src/g/Retro Bowl/retro-bowl.jpg" alt="Retro Bowl" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/retro-bowl-college')">
+      <img src="src/g/Retro Bowl College/retro-bowl-college.png" alt="Retro Bowl College" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/ant-art-tycoon')">
+      <img src="src/g/Ant Art Tycoon/ant-art-tycoon.png" alt="Ant Art Tycoon" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/drive-mad')">
+      <img src="src/games/Drive Mad/drive-mad.jpg" alt="Drive Mad" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/1v1LoL')">
+      <img src="src/g/1v1LoL/1v1lol.jpeg" alt="1v1LoL" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/minecraft')">
+      <img src="src/g/Minecraft/mc.png" alt="Minecraft" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/crossy-road')">
+      <img src="src/g/Crossy Road/crossy-road.webp" alt="Crossy Road" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/bloxorz')">
+      <img src="src/g/Bloxorz/bloxorz.jpg" alt="Bloxorz" />
+    </a>
+    <a href="#" class="g-item" onclick="openIframeOverlay('https://example.com/fruit-ninja')">
+      <img src="src/g/Fruit Ninja/fruit-ninja.png" alt="Fruit Ninja" />
+    </a>
   </div>
+  <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
+</div>
+
+<h2>Movies</h2>
+<div class="carousel-container">
+  <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
+  <div class="carousel">
+    <br>
+    <a href="#" class="m-item" onclick="openIframeOverlay('https://example.com/superman')">
+      <img src="src/m/Superman/superman.webp" alt="Superman" />
+    </a>
+    <a href="#" class="m-item" onclick="openIframeOverlay('https://example.com/hunger-games')">
+      <img src="src/m/Hunger Games/hunger-games.webp" alt="Hunger Games" />
+    </a>
+  </div>
+  <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
+</div>
+
+<!-- Overlay for iframe -->
+<div id="iframeOverlay">
+  <div id="iframeContainer">
+    <button id="closeOverlay" onclick="closeIframeOverlay()">X</button>
+    <iframe src="" id="iframeContent"></iframe>
+  </div>
+</div>
 
 <script>
 function scrollLeft(container) {
@@ -69,6 +123,20 @@ function scrollLeft(container) {
 function scrollRight(container) {
   const carousel = container.querySelector('.carousel');
   carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
+}
+
+function openIframeOverlay(url) {
+  const overlay = document.getElementById('iframeOverlay');
+  const iframe = document.getElementById('iframeContent');
+  iframe.src = url;
+  overlay.style.display = 'flex';
+}
+
+function closeIframeOverlay() {
+  const overlay = document.getElementById('iframeOverlay');
+  const iframe = document.getElementById('iframeContent');
+  iframe.src = '';
+  overlay.style.display = 'none';
 }
 </script>
 
