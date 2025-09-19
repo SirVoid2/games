@@ -4,63 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Media Gallery</title>
-<style>
-/* Overlay styles */
-#iframeOverlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center; align-items: center;
-  z-index: 9999;
-  flex-direction: column;
-}
-#iframeContainer {
-  position: relative;
-  width: 80%; height: 80%;
-  background: #fff;
-  display: flex; flex-direction: column;
-  padding: 10px;
-  box-sizing: border-box;
-}
-#iframeContainer iframe {
-  flex: 1;
-  width: 100%; height: 100%;
-  border: none;
-}
-#topButtons {
-  display: flex; justify-content: flex-end; margin-bottom: 5px;
-}
-#closeOverlay, #fullscreenBtn {
-  background: #333; color: #fff; border: none; padding: 5px 10px; margin-left: 5px; cursor: pointer; font-size: 14px;
-}
-#closeOverlay:hover, #fullscreenBtn:hover {
-  background: #555;
-}
-/* Carousel styles */
-#media-sections {
-  margin-top: 20px;
-}
-.row {
-  margin-bottom: 30px;
-}
-.carousel-container {
-  display: flex; align-items: center; position: relative; margin: 10px 0;
-}
-.carousel {
-  display: flex; overflow-x: auto; scroll-behavior: smooth; padding: 10px;
-}
-.media-item {
-  flex: 0 0 auto; margin-right: 10px; cursor: pointer;
-}
-.media-item img {
-  width: 150px; height: 100px; object-fit: cover;
-}
-.scroll-btn {
-  background: none; border: none; font-size: 24px; cursor: pointer; padding: 10px;
-}
-</style>
 </head>
 <body>
 
