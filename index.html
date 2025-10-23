@@ -116,7 +116,7 @@ h2 {
   transform: scale(1.05);
 }
 
-/* Overlay styles with rounded iframe, no toggle size */
+/* Overlay styles with rounded iframe, now fullscreen toggles overlay container */
 #iframeOverlay {
   display: none;
   position: fixed;
@@ -139,15 +139,7 @@ h2 {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: width 0.3s, height 0.3s;
 }
-/* Removed enlarged class styles */
-/*
-#iframeContainer.enlarged {
-  width: 95%;
-  height: 95%;
-}
-*/
 #iframeContainer iframe {
   flex: 1;
   width: 100%;
@@ -166,7 +158,7 @@ h2 {
   width: 100%;
   z-index: 1000;
 }
-#closeOverlay {
+#closeOverlay, #fullscreenBtn {
   background: rgba(50, 50, 50, 0.8);
   border: none;
   color: #fff;
@@ -178,45 +170,60 @@ h2 {
   font-size: 14px;
   transition: background 0.2s;
 }
-#closeOverlay:hover {
+#closeOverlay:hover, #fullscreenBtn:hover {
   background: rgba(70, 70, 70, 1);
 }
 </style>
 </head>
 <body>
 
+<h2>Games!</h2>
+<div class="carousel-container">
+  <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
+  <div class="carousel" id="games-carousel"></div>
+  <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
+</div>
+
+<h2>Movies</h2>
+<div class="carousel-container">
+  <button class="scroll-btn left" onclick="scrollLeft(this.parentElement)">&#10094;</button>
+  <div class="carousel" id="movies-carousel"></div>
+  <button class="scroll-btn right" onclick="scrollRight(this.parentElement)">&#10095;</button>
+</div>
+
 <!-- Overlay for iframe -->
 <div id="iframeOverlay">
   <div id="iframeContainer">
     <div id="topButtons">
       <button id="closeOverlay" onclick="closeIframeOverlay()">X</button>
-      <!-- Removed size toggle button -->
+      <button id="fullscreenBtn" onclick="toggleFullscreen()">Fullscreen</button>
     </div>
     <iframe src="" id="iframeContent"></iframe>
   </div>
 </div>
 
 <script>
-// Data arrays for demo
+// Data arrays
 const gGames = [
   { title: "Retro Bowl", cover: "src/g/Retro Bowl/retro-bowl.jpg", url: "src/g/Retro Bowl/" },
   { title: "Retro Bowl College", cover: "src/g/Retro Bowl College/retro-bowl-college.png", url: "src/g/Retro Bowl College/" },
-  { title: "Fruit Ninja", cover: "src/g/Fruit Ninja/fruit-ninja.png", url: "src/g/Fruit Ninja/" },
-  { title: "Minecraft", cover: "src/g/Minecraft/mc.png", url: "src/g/Minecraft/" },
+  { title: "Ant Art Tycoon", cover: "src/g/Ant Art Tycoon/ant-art-tycoon.png", url: "src/g/Ant Art Tycoon/" },
+  { title: "Drive Mad", cover: "src/g/Drive Mad/drive-mad.jpg", url: "src/g/Drive Mad/" },
   { title: "1v1LoL", cover: "src/g/1v1LoL/1v1lol.jpeg", url: "src/g/1v1LoL/" },
+  { title: "BlackJack", cover: "src/g/1v1LoL/1v1lol.jpeg", url: "https://qasblackjack.vercel.app" },
+  { title: "Minecraft", cover: "src/g/Minecraft/mc.png", url: "src/g/Minecraft/" },
+  { title: "Crossy Road", cover: "src/g/Crossy Road/crossy-road.webp", url: "src/g/Crossy Road/" },
   { title: "Bloxorz", cover: "src/g/Bloxorz/bloxorz.jpg", url: "src/g/Bloxorz/" },
-  { title: "Cookie Clicker", cover: "src/g/Cookie Clicker/cookie-clicker.jpg", url: "src/g/Cookie Clicker/" },
-  // add more if needed
+  { title: "Fruit Ninja", cover: "src/g/Fruit Ninja/fruit-ninja.png", url: "src/g/Fruit Ninja/" }
 ];
 
 const movies = [
   { title: "Superman", cover: "src/m/Superman/superman.webp", url: "src/m/Superman/" },
-  { title: "Hunger Games", cover: "src/m/Hunger Games/hunger-games.webp", url: "src/m/Hunger Games/" },
-  // add more if needed
+  { title: "Hunger Games", cover: "src/m/Hunger Games/hunger-games.webp", url: "src/m/Hunger Games/" }
 ];
 
 // Function to create sections
-function createSection(title, items, className) {
+function createSection(title, items, isGame = false) {
   const container = document.createElement('div');
   container.className = 'row';
 
@@ -240,7 +247,7 @@ function createSection(title, items, className) {
 
   items.forEach(item => {
     const div = document.createElement('div');
-    div.className = className;
+    div.className = isGame ? 'g-item' : 'm-item';
     div.innerHTML = `<img src="${item.cover}" alt="${item.title}"><p>${item.title}</p>`;
     div.onclick = () => openIframeOverlay(item.url);
     carousel.appendChild(div);
@@ -261,21 +268,57 @@ function createSection(title, items, className) {
   document.body.appendChild(container);
 }
 
-// Create sections
-createSection("My Games", gGames, 'g-item');
-createSection("Movies", movies, 'm-item');
+// Create sections for games and movies
+createSection("My Games", gGames, true);
+createSection("Movies", movies, false);
 
-// Overlay controls
+// Scroll functions
+function scrollLeft(container) {
+  const carousel = container.querySelector('.carousel');
+  carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: 'smooth' });
+}
+function scrollRight(container) {
+  const carousel = container.querySelector('.carousel');
+  carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: 'smooth' });
+}
+
 const overlay = document.getElementById('iframeOverlay');
 const iframe = document.getElementById('iframeContent');
+
+let isFullscreen = false;
 
 function openIframeOverlay(url) {
   iframe.src = url;
   overlay.style.display = 'flex';
+  isFullscreen = false;
 }
+
 function closeIframeOverlay() {
   iframe.src = '';
   overlay.style.display = 'none';
+}
+
+function toggleFullscreen() {
+  const overlayEl = document.getElementById('iframeOverlay');
+  if (!isFullscreen) {
+    if (overlayEl.requestFullscreen) {
+      overlayEl.requestFullscreen();
+    } else if (overlayEl.webkitRequestFullscreen) {
+      overlayEl.webkitRequestFullscreen();
+    } else if (overlayEl.msRequestFullscreen) {
+      overlayEl.msRequestFullscreen();
+    }
+    isFullscreen = true;
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+    isFullscreen = false;
+  }
 }
 </script>
 
