@@ -28,3 +28,7 @@ games.forEach(game => {
 
   container.appendChild(link);
 });
+
+setTimeout(function() {
+    location.reload();
+    }, 500); // Reloads the page after 5 seconds (5000 milliseconds
