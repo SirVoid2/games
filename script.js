@@ -31,4 +31,4 @@ games.forEach(game => {
 
 setTimeout(function() {
     location.reload();
-    }, 500); // Reloads the page after 5 seconds (5000 milliseconds
+    }, 200); // Reloads the page after 5 seconds (5000 milliseconds
