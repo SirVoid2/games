@@ -31,4 +31,4 @@ games.forEach(game => {
 
 setTimeout(function() {
     location.reload();
-    }, 200); // Reloads the page
+    }, 50); // Reloads the page
