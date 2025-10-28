@@ -4,7 +4,7 @@ const games = [
   "games/Ant Art Tycoon",
   "games/BitLife",
   "games/Bloxorz",
-  "games/Blackjack",
+  "games/Blackjack/index.html",
   "games/Cookie Clicker",
   "games/Crossy Road",
   "games/Drift Boss",
