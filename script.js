@@ -9,6 +9,7 @@ const games = [
   "games/Crossy Road",
   "games/Drift Boss",
   "games/Drive Mad",
+  "games/Emulator",
   "games/Fruit Ninja",
   "games/Minecraft",
   "games/Retro Bowl",
