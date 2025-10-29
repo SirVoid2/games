@@ -13,7 +13,7 @@ const games = [
   "games/Minecraft",
   "games/Retro Bowl",
   "games/Retro Bowl College",
-  "games/Sandboxels.index.html",
+  "games/Sandboxels/index.html",
   "games/Stickman Hook"
 
 ];
