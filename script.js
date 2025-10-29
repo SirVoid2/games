@@ -11,9 +11,10 @@ const games = [
   "games/Drive Mad",
   "games/Fruit Ninja",
   "games/Minecraft",
-  "games/Moto X3M",
   "games/Retro Bowl",
-  "games/Retro Bowl College"
+  "games/Retro Bowl College",
+  "games/Stickman Hook"
+
 ];
 
 const container = document.querySelector('div');
