@@ -10,6 +10,7 @@ const games = [
   "games/Drift Boss",
   "games/Drive Mad",
   "games/Fruit Ninja",
+  "games/Geometry Dash",
   "games/Minecraft",
   "games/Retro Bowl",
   "games/Retro Bowl College",
