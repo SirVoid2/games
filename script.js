@@ -19,8 +19,7 @@ const games = [
   "games/Sandboxels/index.html",
   "games/Sandspiel",
   "games/Stickman Hook",
-  "games/Subway Surfers"
-
+  "games/Subway Surfers",
 ];
 
 const container = document.querySelector('div');
