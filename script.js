@@ -18,7 +18,7 @@ const games = [
   "games/Retro Bowl College",
   "games/Sandboxels/index.html",
   "games/Sandspiel",
-  "games/Stickman Hook"
+  "games/Stickman Hook",
   "games/Subway Surfers"
 
 ];
