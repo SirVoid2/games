@@ -11,12 +11,32 @@ h2 {
   color: #333;
 }
 
+/* 
+ * Style for the search input field 
+ */
+#searchInput {
+  width: 100%; /* Take full width of the body/container */
+  max-width: 500px; /* Optional: Prevents it from getting too wide on large screens */
+  padding: 12px;
+  margin-bottom: 20px; /* Space below the search bar */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensures padding/border doesn't add to the width */
+  font-size: 16px;
+  /* Optional: Center the input if desired */
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Container for the games list */
 div {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
+  /* Add this line to center the game links horizontally */
+  justify-content: center;
 }
 
 /* Style for each game link */
