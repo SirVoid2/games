@@ -1,57 +1,74 @@
 /* Basic reset and styling */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 20px;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 20px;
+    padding: 20px;
 }
 
 /* Style for the heading */
 h2 {
-  color: #333;
+    color: #333;
 }
 
-/* 
- * Style for the search input field 
- */
+/* Style for the search input field */
 #searchInput {
-  width: 100%; /* Take full width of the body/container */
-  max-width: 500px; /* Optional: Prevents it from getting too wide on large screens */
-  padding: 12px;
-  margin-bottom: 20px; /* Space below the search bar */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box; /* Ensures padding/border doesn't add to the width */
-  font-size: 16px;
-  /* Optional: Center the input if desired */
-  display: block; 
-  margin-left: auto;
-  margin-right: auto;
+    width: 100%; /* Take full width of the body/container */
+    max-width: 500px; /* Optional: Prevents it from getting too wide on large screens */
+    padding: 12px;
+    margin-bottom: 20px; /* Space below the search bar */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding/border doesn't add to the width */
+    font-size: 16px;
+    /* Optional: Center the input if desired */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Container for the games list */
 div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-  /* Add this line to center the game links horizontally */
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    /* Add this line to center the game links horizontally */
+    justify-content: center;
 }
 
 /* Style for each game link */
 a.game-link {
-  display: inline-block;
-  padding: 10px 15px;
-  background-color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  color: #007BFF;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007BFF;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 a.game-link:hover {
-  background-color: #007BFF;
-  color: #fff;
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* Styling for the new banner container (MOVED from HTML) */
+.banner-container {
+    margin-top: 40px;
+    text-align: center;
+    /* Added max-width to keep the banner responsive and contained */
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Styling for the banner image (MOVED from HTML) */
+.banner-image {
+    /* Ensures the image fits within its container while maintaining aspect ratio */
+    width: 100%;
+    height: auto;
+    display: block;
+    border: none; /* Removes default link border */
 }
