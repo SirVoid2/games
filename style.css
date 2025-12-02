@@ -1,77 +1,77 @@
-/* Overall Page Layout Container */
-.page-layout {
-  display: flex; /* Use flexbox for the two-column layout */
-  justify-content: center; /* Center the whole layout on the page */
-  gap: 20px; /* Add space between the left and right columns */
-  padding: 20px;
-  max-width: 1400px; /* Optional: Constrain the maximum width */
-  margin: 0 auto; /* Center the layout */
-}
-
-/* Main Content Area (Search and Games) */
-.main-content {
-  flex-grow: 1; /* Allow this column to grow and take up available space */
-  max-width: 900px; /* Set a maximum width for this column */
-  /* The rest of your search and game styles go inside this container */
-}
-
-/* Ad Container */
-.ad-container {
-  width: 300px; /* Example fixed width for the ad column */
-  flex-shrink: 0; /* Prevent the ad from shrinking on smaller screens */
-  /* You can set a fixed height or let the content define it */
-  /* height: 600px; */
-  /* Add other ad-specific styles here, like background, border, etc. */
-}
-
-/* Example: Style for an ad image inside the container */
-.ad-image {
-  width: 100%;
-  height: auto; /* Or '100%' if you want it to fill the height */
-  display: block;
-}
-
-/* Original Styles (for reference, can remain unchanged) */
+/* Basic reset and styling */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
 
+/* Main container to hold columns */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* Left column styling */
+#left-column {
+    width: 70%; /* Adjust width as needed */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Right column styling */
+#right-column {
+    width: 30%; /* Adjust width as needed */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Style for the heading */
+h2 {
+    color: #333;
+}
+
+/* Style for the search input field */
 #searchInput {
-  width: 100%;
-  max-width: 500px;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 16px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
-.game-list-container { /* Renamed from 'div' for clarity */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: center;
+/* Container for the games list */
+#games-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: flex-start; /* Align games to the start of the left column */
 }
 
-a.game-link {
-  display: inline-block;
-  padding: 10px 15px;
-  background-color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  color: #007BFF;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: background-color 0.3s, color 0.3s;
+/* Style for each game link */
+.game-link {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007BFF;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Added a slight shadow */
 }
-a.game-link:hover {
-  background-color: #007BFF;
-  color: #fff;
+
+/* Banner styling */
+.banner-container {
+    width: 100%;
+    text-align: center;
+}
+
+.banner-image {
+    max-width: 100%; /* Ensure image is responsive */
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
