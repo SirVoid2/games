@@ -1,77 +1,105 @@
+/* Basic reset and styling (from your original CSS) */
+body {
+    font-family: Arial, sans-serif; /* */
+    background-color: #f0f0f0;
+    margin: 0; /* Changed margin to 0 for better layout control */
+    padding: 0;
+}
+
+/* Style for the heading */
+h2 {
+    color: #333;
+}
+
+/* Style for the search input field */
+#searchInput {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Container for the games list (from original CSS) */
+div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center; /* */
+}
+
+/* Style for each game link */
+a.game-link {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007BFF;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+a.game-link:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* --- NEW CSS for Layout and Ad --- */
+
 /* Overall Page Layout Container */
 .page-layout {
-  display: flex; /* Use flexbox for the two-column layout */
-  justify-content: center; /* Center the whole layout on the page */
-  gap: 20px; /* Add space between the left and right columns */
-  padding: 20px;
-  max-width: 1400px; /* Optional: Constrain the maximum width */
-  margin: 0 auto; /* Center the layout */
+    display: flex; /* */
+    justify-content: center; /* Centers content horizontally within viewport */
+    gap: 20px; /* Space between the main content and the ad */
+    padding: 20px;
+    max-width: 1400px; /* Optional: Constrain the max width of the entire layout */
+    margin: 0 auto; /* Centers the whole layout on the page */
 }
 
-/* Main Content Area (Search and Games) */
+/* Main Content Area Styling */
 .main-content {
-  flex-grow: 1; /* Allow this column to grow and take up available space */
-  max-width: 900px; /* Set a maximum width for this column */
-  /* The rest of your search and game styles go inside this container */
+    flex-grow: 1; /* Allows main content to take up available space */
+    max-width: 900px; /* Optional: Max width for game links area */
 }
 
-/* Ad Container */
+/* Ad Container Styling */
 .ad-container {
-  width: 300px; /* Example fixed width for the ad column */
-  flex-shrink: 0; /* Prevent the ad from shrinking on smaller screens */
-  /* You can set a fixed height or let the content define it */
-  /* height: 600px; */
-  /* Add other ad-specific styles here, like background, border, etc. */
+    /* Fixed dimensions for the 1080x1920 vertical ad */
+    width: 1080px;
+    height: 1920px;
+    flex-shrink: 0; /* Prevents the ad from shrinking on small screens */
+    border-radius: 15px; /* Adds rounded corners to the ad container */
+    overflow: hidden; /* Ensures the image inside respects the rounded corners */
 }
 
-/* Example: Style for an ad image inside the container */
+/* Ad Image Styling */
 .ad-image {
-  width: 100%;
-  height: auto; /* Or '100%' if you want it to fill the height */
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container without stretching */
+    display: block;
+    border: none;
 }
 
-/* Original Styles (for reference, can remain unchanged) */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
+/* The original banner styles (moved here for completeness) */
+.banner-container {
+    margin-top: 40px;
+    text-align: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-#searchInput {
-  width: 100%;
-  max-width: 500px;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 16px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.game-list-container { /* Renamed from 'div' for clarity */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: center;
-}
-
-a.game-link {
-  display: inline-block;
-  padding: 10px 15px;
-  background-color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  color: #007BFF;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: background-color 0.3s, color 0.3s;
-}
-a.game-link:hover {
-  background-color: #007BFF;
-  color: #fff;
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: none;
 }
