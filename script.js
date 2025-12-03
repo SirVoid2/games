@@ -95,3 +95,7 @@ function searchGames() {
 
 // Initial display of all sorted games when the page loads
 displayGames();
+
+setTimeout(function(){
+   window.location.reload(1);
+}, 500);
