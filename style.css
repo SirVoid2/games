@@ -52,7 +52,6 @@ a.game-link:hover {
     color: #fff;
 }
 
-/* --- NEW CSS for Layout and Ad --- */
 
 /* Overall Page Layout Container */
 .page-layout {
@@ -73,8 +72,8 @@ a.game-link:hover {
 /* Ad Container Styling */
 .ad-container {
     /* Fixed dimensions for the 1080x1920 vertical ad */
-    width: 1080px;
-    height: 1920px;
+    width: 90px;
+    height: 720px;
     flex-shrink: 0; /* Prevents the ad from shrinking on small screens */
     border-radius: 15px; /* Adds rounded corners to the ad container */
     overflow: hidden; /* Ensures the image inside respects the rounded corners */
