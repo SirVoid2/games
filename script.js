@@ -98,4 +98,4 @@ displayGames();
 
 setTimeout(function(){
    window.location.reload(1);
-}, 500);
+}, 2000);
