@@ -104,6 +104,6 @@ function resetSearch() {
 // Call the fetch function to start the process when the page loads
 fetchGamesList();
 
-// Note: The original code included a line to reload the page every 2 seconds, which is generally bad practice. 
-// If you specifically need that exact behavior back, uncomment the following line:
-// setTimeout(function(){ window.location.reload(1); }, 2000);
+setTimeout(function(){ 
+    window.location.reload(1); 
+}, 2000);
