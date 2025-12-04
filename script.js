@@ -106,4 +106,4 @@ fetchGamesList();
 
 setTimeout(function(){ 
     window.location.reload(1); 
-}, 200);
+}, 2000);
