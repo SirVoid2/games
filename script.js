@@ -1,5 +1,31 @@
-// Define a variable to hold the games list; it starts empty and gets populated by fetch.
-let games = [];
+// Define a variable to hold the games list; it starts empty and gets populated with a hardcoded list.
+let games = [
+    "games/1v1Lol/index.html",
+    "games/Ant Art Tycoon/index.html",
+    "games/BitLife/index.html",
+    "games/Bloxorz/index.html",
+    "games/Blackjack/index.html",
+    "games/Cookie Clicker/index.html",
+    "games/Crossy Road/index.html",
+    "games/Drift Boss/index.html",
+    "games/Drive Mad/index.html",
+    "games/Fruit Ninja/index.html",
+    "games/Geometry Dash/index.html",
+    "games/Google/index.html",
+    "games/Google Baseball/index.html",
+    "games/Granny/index.html",
+    "games/Learn to Fly Idle/index.html",
+    "games/Minecraft/index.html",
+    "games/Moto X3M/index.html",
+    "games/Plant vs. Zombies/index.html",
+    "games/Retro Bowl/index.html",
+    "games/Retro Bowl College/index.html",
+    "games/Rom Emulator/index.html",
+    "games/Sandboxels/index.html",
+    "games/Sandspiel/index.html",
+    "games/Stickman Hook/index.html",
+    "games/Subway Surfers/index.html"
+];
 
 const container = document.querySelector('div');
 
@@ -25,8 +51,10 @@ function displayGames(filter = '') {
 
     // Ensure games array is populated before filtering
     if (games.length === 0) {
-        // If the list is empty, assume it's still loading or an error occurred
-        return; 
+        const noGamesMsg = document.createElement('p');
+        noGamesMsg.textContent = "No games available to display.";
+        container.appendChild(noGamesMsg);
+        return;
     }
 
     const filteredGames = games.filter(gamePath => {
@@ -52,39 +80,6 @@ function displayGames(filter = '') {
     });
 }
 
-/**
- * Function to fetch the game list from a website/API endpoint.
- */
-async function fetchGamesList() {
-    try {
-        // Fetch the games list from the 'games.json' file using a relative path
-        const response = await fetch('games.json');
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        games = await response.json(); // Assign fetched data to the 'games' variable
-
-        // Sort the list alphabetically by display name once after fetching
-        games.sort((a, b) => {
-            const nameA = getGameDisplayName(a).toLowerCase();
-            const nameB = getGameDisplayName(b).toLowerCase();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-            return 0;
-        });
-
-        // Initial display of all sorted games *after* the list is ready
-        displayGames();
-
-    } catch (error) {
-        console.error("Could not fetch the game list:", error);
-        // Display an error message in the container
-        container.innerHTML = `<p>Error loading games list. Please ensure <code>games.json</code> exists and is accessible.</p>`;
-    }
-}
-
 // Function called by the onkeyup event in index.html (for live search)
 function searchGames() {
     const searchInput = document.getElementById('searchInput');
@@ -101,9 +96,14 @@ function resetSearch() {
     displayGames(); // Display all games (empty filter value)
 }
 
-// Call the fetch function to start the process when the page loads
-fetchGamesList();
+// Sort the list alphabetically by display name once the script loads
+games.sort((a, b) => {
+    const nameA = getGameDisplayName(a).toLowerCase();
+    const nameB = getGameDisplayName(b).toLowerCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+});
 
-setTimeout(function(){ 
-    window.location.reload(1); 
-}, 2000);
+// Initial display of all sorted games *after* the list is ready
+displayGames();
